@@ -32,8 +32,9 @@ public class WaterSortGame {
 
     }
     //display method for displaying bottle stuff
-    public void display(){
-
+    public void display(int maxbottlesize , int colorNumber , ClinkedList<Bottle> bottleList){
+//        Bottle temp = new Bottle(maxbottlesize);
+        bottleList.show();
     }
     //select method for choosing a bottle
     public Boolean select(int bottleNumber){
