@@ -6,7 +6,7 @@ public class WaterSortGame {
     private int maxbottlesize;
 
     //circular Queue implementation with linkedList
-    private ClinkedList<Bottle> bottleList;
+    private ClinkedList bottleList;
     //constructor
     public WaterSortGame(String colors, int maxbottlesize) {
         //The number of spaces is one less than the number of colors
@@ -14,7 +14,7 @@ public class WaterSortGame {
         this.numberOfBottles = WaterSortGame.countSpaces(colors) + 2;
         this.colors = colors;
         this.maxbottlesize = maxbottlesize;
-        this.bottleList = new ClinkedList<>();
+        this.bottleList = new ClinkedList();
     }
 
     //Calculates the number of spaces
@@ -32,7 +32,7 @@ public class WaterSortGame {
 
     }
     //display method for displaying bottle stuff
-    public void display(int maxbottlesize , int colorNumber , ClinkedList<Bottle> bottleList){
+    public void display(int maxbottlesize , int colorNumber , ClinkedList bottleList){
 //        Bottle temp = new Bottle(maxbottlesize);
         bottleList.show();
     }

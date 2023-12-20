@@ -2,45 +2,55 @@
 public class Bottle {
     int maxBottleSize;
     String[] bottleColors;
+    int top;
 
     //constructor
     public Bottle(int maxBottleSize) {
         this.maxBottleSize = maxBottleSize;
-        this.bottleColors = new String[maxBottleSize];  // Initialize the array with the specified size
+        this.bottleColors = new String[maxBottleSize];
+        this.top = -1;
     }
 
-    //pop item from stack
+    // Pop item from stack
     public String pop() {
-        int i = 0;
-        if (bottleColors.length == 0) {
-            System.out.println("Bottle is Empty , cannot delete color !");
+        if (Bottle.isEmpty(this.top)) {
+            System.out.println("Stack is empty, cannot pop!");
             return null;
         } else {
-            while (bottleColors[i] != null) {
-                i++;
-            }
-            String deletedColor = bottleColors[i - 1];
-            bottleColors[i - 1] = null;
-            return deletedColor;
+            String poppedColor = bottleColors[top];
+            bottleColors[top] = null;
+            top--;
+            return poppedColor;
         }
     }
 
-    //insert an item to stack
-    public Boolean insert(String color) {
-        if (this.bottleColors != null) {
-            if (bottleColors.length == maxBottleSize) {
-                System.out.println("Bottle is full, cannot add color anymore!");
-                return false;
-            } else {
-                int i = 0;
-                while (i < bottleColors.length && bottleColors[i] != null) {
-                    i++;
-                }
-                bottleColors[i] = color;
-                return true;
-            }
+    // Insert an item to stack
+    public boolean insert(String color) {
+        if (top == maxBottleSize - 1) {
+            System.out.println("Stack is full, cannot insert more bottles!");
+            return false;
+        } else {
+            top++;
+            bottleColors[top] = color;
+            return true;
         }
-        return false;
+    }
+
+    public static Boolean isEmpty(int top) {
+        return top == -1;
+    }
+
+    // Get element at a specific index
+    public String getElementAt(int index) {
+        if (index < 0 || index > top) {
+            System.out.println("Invalid index!");
+            return null;
+        }
+        return bottleColors[index];
+    }
+
+    public int getMaxBottleSize() {
+        return maxBottleSize;
     }
 
     // Override toString method
@@ -48,21 +58,20 @@ public class Bottle {
     public String toString() {
         if (bottleColors == null) {
             StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.append("|      |\n".repeat(Math.max(0, maxBottleSize)));
-            return "| Empty Kooni |";
-        }
-
-        StringBuilder result = new StringBuilder();
-        for (String color : bottleColors) {
-            if (color != null) {
-                result.append(String.format("| %-30s |\n", color));
-            }
-        }
-
-        if (result.length() == 0) {
+            stringBuilder.append("|    |\n".repeat(Math.max(0, maxBottleSize)));
             return "| Empty |";
         }
 
+        StringBuilder result = new StringBuilder();
+        for (int i = bottleColors.length - 1; i >= 0; i--) {
+            String color = bottleColors[i];
+            if (color != null) {
+                result.append(String.format("| %-6s |\n", color));
+            }
+        }
+        if (result.length() == 0) {
+            return "| Empty |";
+        }
         return result.toString();
     }
 }
