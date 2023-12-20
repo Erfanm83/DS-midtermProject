@@ -1,76 +1,98 @@
-public class ClinkedList<Bottle> {
-    private Node<Bottle> front;
-    private Node<Bottle> rear;
+import org.w3c.dom.Node;
+
+public class ClinkedList {
+    private myNode first;
+//    private Bottle front;
+//    private Bottle rear;
 
     //Constructor
     public ClinkedList() {
-        this.front = null;
-        this.rear = null;
+        this.first = null;
+//        this.front = null;
+//        this.rear = null;
     }
 
-    public Node<Bottle> getNext(Bottle value){
-        return front;
-    }
-    public Node<Bottle> getPrev(Bottle value){
-        return rear;
-    }
+//    public  Bottle getNext(Bottle value){
+//        return front;
+//    }
+//    public Bottle getPrev(Bottle value){
+//        return rear;
+//    }
     //Add a node to linked list
     public void AddCnode(Bottle value) {
-        Node<Bottle> newNode = new Node(value);
-        if (front == null) {
-            front = rear = newNode;
-            newNode.next = newNode.prev = newNode;
-        } else {
-            newNode.next = front;
-            newNode.prev = rear;
-            rear.next = newNode;
-            front.prev = newNode;
-            rear = newNode;
+        myNode p;
+
+        p = new myNode(value);
+        p.info = value;
+        p.next = null;
+
+        if(first == null)
+            first = p;
+        else {
+            p.next = first;
+            first = p;
         }
     }
 
     //Delete node to linked list
-    public Node<Bottle> DeleteCnode() {
-        if (front == null) {
-            System.out.println("Circular LinkedList is empty. Cannot delete");
+    public myNode DeleteCnode(Bottle value) {
+        myNode p, q;
+        if (first == null) {
+            System.out.println("List is empty. Cannot delete");
             return null;
         }
-        if (front == rear) {
-            front = rear = null;
-            return null;
-        } else {
-            rear.prev.next = front;
-            front.prev = rear.prev;
-            rear = rear.prev;
-            return rear;
+        else {
+            p = first;
+            q = first;
+            while (p != null && p.info != value) {
+                q = p;
+                p = p.next;
+            }
+            if (p == null) {
+                System.out.println("Not found. Cannot delete");
+                return null;
+            }
+            else if (p == first) {
+                first = first.next;
+                return p;
+            }
+            else {
+                q.next = p.next;
+                return p;
+            }
         }
     }
     public void show() {
-        if (front == null) {
+        if (first == null) {
             System.out.println("Circular Queue is empty.");
             return;
         }
-        Node<Bottle> current = front;
+        myNode p = first;
         do {
-            System.out.print(current.bottle + " ");
-            current = current.next;
-        } while (current != front);
+            myNode temp = p;
+            if (p == null) {
+                System.out.print("| " + "Empty" + " |");
+            }else {
+                temp.info.insert(p.info.pop());
+                System.out.print("| " + temp.info.pop() + " |");
+            }
+            p = p.next;
+        } while (p != first);
         System.out.println();
     }
 
     public Boolean isEmpty(){
-        return front == null || rear == null;
+        return first == null;
     }
-
 }
 
 //Definition of class Node that is of type Bottle itself
-class Node <Bottle>{
-    Bottle bottle;
-    Node<Bottle> next;
-    Node<Bottle> prev;
-    public Node(Bottle data) {
-        this.bottle = data;
+class myNode {
+    Bottle info ;
+    myNode next;
+    myNode prev;
+    public myNode(Bottle data) {
+        this.info = data;
         this.next = null;
         this.prev = null;
     }

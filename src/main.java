@@ -8,11 +8,19 @@ public class main {
     public static void main(String[] args) {
         WaterSortGame waterSortGame = new WaterSortGame("blue green yellow" , 4);
         Bottle mybottle = new Bottle(4);
+        Bottle mybottle2 = new Bottle(4);
         System.out.println(mybottle.insert("blue"));
         System.out.println(mybottle.insert("green"));
         System.out.println(mybottle.insert("yellow"));
-        ClinkedList<Bottle> bottleClinkedList = new ClinkedList<>();
+        System.out.println(mybottle.insert("red"));
+        System.out.println(mybottle2.insert("red"));
+        System.out.println(mybottle2.insert("red"));
+        System.out.println(mybottle2.insert("red"));
+        System.out.println(mybottle2.insert("red"));
+        System.out.println(mybottle2.insert("yellow"));
+        ClinkedList bottleClinkedList = new ClinkedList();
         bottleClinkedList.AddCnode(mybottle);
+        bottleClinkedList.AddCnode(mybottle2);
         waterSortGame.display(4 , 3 , bottleClinkedList);
     }
 
