@@ -27,7 +27,7 @@ public class Bottle {
     // Insert an item to stack
     public boolean insert(String color) {
         if (top == maxBottleSize - 1) {
-            System.out.println("Stack is full, cannot insert more bottles!");
+            System.out.println("Bottle is full, cannot insert more colors!");
             return false;
         } else {
             top++;
