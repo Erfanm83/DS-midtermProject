@@ -83,7 +83,7 @@ public class ClinkedList {
                             System.out.print(ANSI_CYAN + String.format("%-6s", colorsTemp[j]) + ANSI_CYAN); // Cyan text
                     case "purple" ->
                             System.out.print(ANSI_PURPLE + String.format("%-6s", colorsTemp[j]) + ANSI_PURPLE); // Purple text
-                    default -> System.out.print(colorsTemp);
+                    default -> System.out.print(colorsTemp[j]);
                 }
                 System.out.print(ANSI_RESET + " | " + ANSI_RESET);
                 j++;
