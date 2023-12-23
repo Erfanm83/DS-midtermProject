@@ -1,18 +1,18 @@
-import org.w3c.dom.Node;
-
 public class ClinkedList {
-    private myNode first;
+    private myNode head = null;
+    private myNode tail = null;
 //    private Bottle front;
 //    private Bottle rear;
 
     //Constructor
     public ClinkedList() {
-        this.first = null;
+        this.head = new myNode(null);
+        this.tail =  new myNode(null);
 //        this.front = null;
 //        this.rear = null;
     }
 
-//    public  Bottle getNext(Bottle value){
+    //    public  Bottle getNext(Bottle value){
 //        return front;
 //    }
 //    public Bottle getPrev(Bottle value){
@@ -20,77 +20,78 @@ public class ClinkedList {
 //    }
     //Add a node to linked list
     public void AddCnode(Bottle value) {
-        myNode p;
+        myNode newNode = new myNode(value);
 
-        p = new myNode(value);
-        p.info = value;
-        p.next = null;
-
-        if(first == null)
-            first = p;
-        else {
-            p.next = first;
-            first = p;
+        if (head == null) {
+            head = newNode;
+        }else {
+            tail.next = newNode;
         }
+        tail = newNode;
+        tail.next = head;
     }
 
     //Delete node to linked list
-    public myNode DeleteCnode(Bottle value) {
-        myNode p, q;
-        if (first == null) {
-            System.out.println("List is empty. Cannot delete");
-            return null;
-        }
-        else {
-            p = first;
-            q = first;
-            while (p != null && p.info != value) {
-                q = p;
-                p = p.next;
+    public void DeleteCnode(Bottle value) {
+        myNode currentNode = head;
+        if (head == null) // the list is empty
+            return;
+        do {
+            myNode nextNode = currentNode.next;
+            if (nextNode.info == value) {
+                if (tail == head) { // the list has only one single element
+                    head = null;
+                    tail = null;
+                } else {
+                    currentNode.next = nextNode.next;
+                    if (head == nextNode) { //we're deleting the head
+                        head = head.next;
+                    }
+                    if (tail == nextNode) { //we're deleting the tail
+                        tail = currentNode;
+                    }
+                }
+                break;
             }
-            if (p == null) {
-                System.out.println("Not found. Cannot delete");
-                return null;
-            }
-            else if (p == first) {
-                first = first.next;
-                return p;
-            }
-            else {
-                q.next = p.next;
-                return p;
-            }
-        }
+            currentNode = nextNode;
+        } while (currentNode != head) ;
     }
-    public void show() {
-        if (first == null) {
+
+    public void show(int bottleSize) {
+        if (this.head == null || this.tail == null) {
             System.out.println("Circular Queue is empty.");
             return;
         }
-        myNode p = first;
-        do {
-            myNode temp = p;
-            if (p == null) {
-                System.out.print("| " + "Empty" + " |");
-            }else {
-                temp.info.insert(p.info.pop());
+        myNode p = this.head;
+        int number = 0;
+        for (int i = 0; i < bottleSize; i++) {
+            do {
+                p = p.next;
+                myNode temp = p;
+//                temp.info.insert(p.info.pop());
                 System.out.print("| " + temp.info.pop() + " |");
+                if (p.next == null)
+                    System.out.println("Ridi");
+                number++;
+            } while (p != head);
+            for (int j = 0; j < number; j++) {
+                p = p.prev;
             }
-            p = p.next;
-        } while (p != first);
-        System.out.println();
+            System.out.println();
+        }
     }
 
-    public Boolean isEmpty(){
-        return first == null;
+    public Boolean isEmpty() {
+        return head == null;
     }
 }
 
 //Definition of class Node that is of type Bottle itself
 class myNode {
-    Bottle info ;
+    Bottle info;
     myNode next;
     myNode prev;
+
     public myNode(Bottle data) {
         this.info = data;
         this.next = null;
