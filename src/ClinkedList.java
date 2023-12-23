@@ -98,7 +98,7 @@ public class ClinkedList {
         for (int i =colorsTemp.length - 1; i > 0; i--) {
             do {
                 p = p.next;
-                System.out.println(p.info.insert(colorsTemp[i]));
+                p.info.insert(colorsTemp[i]);
             }while (p != head);
         }
     }
