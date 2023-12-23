@@ -69,32 +69,23 @@ public class ClinkedList {
                 colorsTemp[j] = p.info.pop();
                 System.out.print(ANSI_RESET + " | " + ANSI_RESET);
                 switch (colorsTemp[j]) {
-                    case "red":
-                        System.out.print(ANSI_RED + String.format("%-6s" , colorsTemp[j]) + ANSI_RED); // Red text
-                        break;
-                    case "blue":
-                        System.out.print(ANSI_BLUE + String.format("%-6s" , colorsTemp[j]) + ANSI_BLUE); // Blue text
-                        break;
-                    case "yellow":
-                        System.out.print(ANSI_YELLOW + String.format("%-6s" , colorsTemp[j]) + ANSI_YELLOW); // Yellow text
-                        break;
-                    case "green":
-                        System.out.print(ANSI_GREEN + String.format("%-6s" , colorsTemp[j])  + ANSI_GREEN); // Green text
-                        break;
-                    case "black":
-                        System.out.print(ANSI_BLACK + String.format("%-6s" , colorsTemp[j])  + ANSI_BLACK); // Black text
-                        break;
-                    case "cyan":
-                        System.out.print(ANSI_CYAN + String.format("%-6s" , colorsTemp[j])  +  ANSI_CYAN); // Cyan text
-                        break;
-                    case "purple":
-                        System.out.print(ANSI_PURPLE + String.format("%-6s" , colorsTemp[j])  + ANSI_PURPLE); // Purple text
-                        break;
-                    default:
-                        System.out.print(colorsTemp);
+                    case "red" ->
+                            System.out.print(ANSI_RED + String.format("%-6s", colorsTemp[j]) + ANSI_RED); // Red text
+                    case "blue" ->
+                            System.out.print(ANSI_BLUE + String.format("%-6s", colorsTemp[j]) + ANSI_BLUE); // Blue text
+                    case "yellow" ->
+                            System.out.print(ANSI_YELLOW + String.format("%-6s", colorsTemp[j]) + ANSI_YELLOW); // Yellow text
+                    case "green" ->
+                            System.out.print(ANSI_GREEN + String.format("%-6s", colorsTemp[j]) + ANSI_GREEN); // Green text
+                    case "black" ->
+                            System.out.print(ANSI_BLACK + String.format("%-6s", colorsTemp[j]) + ANSI_BLACK); // Black text
+                    case "cyan" ->
+                            System.out.print(ANSI_CYAN + String.format("%-6s", colorsTemp[j]) + ANSI_CYAN); // Cyan text
+                    case "purple" ->
+                            System.out.print(ANSI_PURPLE + String.format("%-6s", colorsTemp[j]) + ANSI_PURPLE); // Purple text
+                    default -> System.out.print(colorsTemp);
                 }
                 System.out.print(ANSI_RESET + " | " + ANSI_RESET);
-//                System.out.print(String.format(" | %-6s | " , colorsTemp[j]));
                 j++;
             } while (p != head);
             System.out.println();
@@ -106,7 +97,7 @@ public class ClinkedList {
     }
 }
 
-//Definition of class Node that is of type Bottle itself
+//Definition of class Node
 class myNode {
     Bottle info;
     myNode next;
