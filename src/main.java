@@ -17,11 +17,10 @@ public class main {
         System.out.println(mybottle2.insert("red"));
         System.out.println(mybottle2.insert("red"));
         System.out.println(mybottle2.insert("red"));
-        System.out.println(mybottle2.insert("yellow"));
         ClinkedList bottleClinkedList = new ClinkedList();
         bottleClinkedList.AddCnode(mybottle);
         bottleClinkedList.AddCnode(mybottle2);
-        waterSortGame.display(4 , 3 , bottleClinkedList);
+        waterSortGame.display(4 , bottleClinkedList);
     }
 
     private static void gameplay(LinkedList Bottles) {
