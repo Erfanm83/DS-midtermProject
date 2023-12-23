@@ -1,5 +1,3 @@
-import java.util.LinkedList;
-
 public class WaterSortGame {
     private int numberOfBottles;
     private String colors;
@@ -52,5 +50,38 @@ public class WaterSortGame {
     //selectPrev method for selectiong prev item
     public void selectPrev(){
 
+    }
+    //Pour method for pouring Bottles
+    public Boolean pour(int bottleNumber){
+        //implementation
+        return true;
+    }
+    //Swap method for changing order of Bottles
+    public void swap(int bottleNumber){
+
+    }
+    //ReplaceColor Method
+    public void replaceColor(String firstColor, String secondColor){
+        //implementation
+    }
+    //AddEmptyBottle method
+    //Adds a bottle half the size of maxBottleSize to the end of the list of bottles. User until the end of the game only
+    //He can use this feature once
+    public void addEmptyBottle(){
+        //implementation
+    }
+    //check to see if User had Won the Game or not
+    public Boolean hasWon(){
+        Boolean Haswon = true;
+        //implementation
+        return Haswon;
+    }
+    //Undo Method
+    public void undo(){
+        //implementation
+    }
+    //REdo Method
+    public void redo(){
+        //implementation
     }
 }
