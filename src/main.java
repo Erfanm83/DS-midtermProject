@@ -13,10 +13,10 @@ public class main {
         System.out.println(mybottle.insert("green"));
         System.out.println(mybottle.insert("yellow"));
         System.out.println(mybottle.insert("red"));
+        System.out.println(mybottle2.insert("cyan"));
+        System.out.println(mybottle2.insert("purple"));
         System.out.println(mybottle2.insert("red"));
-        System.out.println(mybottle2.insert("red"));
-        System.out.println(mybottle2.insert("red"));
-        System.out.println(mybottle2.insert("red"));
+        System.out.println(mybottle2.insert("green"));
         ClinkedList bottleClinkedList = new ClinkedList();
         bottleClinkedList.AddCnode(mybottle);
         bottleClinkedList.AddCnode(mybottle2);
