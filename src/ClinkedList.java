@@ -1,23 +1,12 @@
 public class ClinkedList {
-    private myNode head = null;
-    private myNode tail = null;
-//    private Bottle front;
-//    private Bottle rear;
+    private myNode head;
+    private myNode tail;
 
     //Constructor
     public ClinkedList() {
-        this.head = new myNode(null);
-        this.tail =  new myNode(null);
-//        this.front = null;
-//        this.rear = null;
+        this.head = null;
+        this.tail = null;
     }
-
-    //    public  Bottle getNext(Bottle value){
-//        return front;
-//    }
-//    public Bottle getPrev(Bottle value){
-//        return rear;
-//    }
     //Add a node to linked list
     public void AddCnode(Bottle value) {
         myNode newNode = new myNode(value);
@@ -57,26 +46,20 @@ public class ClinkedList {
         } while (currentNode != head) ;
     }
 
-    public void show(int bottleSize) {
-        if (this.head == null || this.tail == null) {
+    public void show(int maxbottleSize) {
+        if (this.head == null) {
             System.out.println("Circular Queue is empty.");
-            return;
         }
         myNode p = this.head;
-        int number = 0;
-        for (int i = 0; i < bottleSize; i++) {
+        int j = 0;
+        String [] colorsTemp = new String[maxbottleSize * (maxbottleSize + 1)];
+        for (int i = 0; i < maxbottleSize; i++) {
             do {
                 p = p.next;
-                myNode temp = p;
-//                temp.info.insert(p.info.pop());
-                System.out.print("| " + temp.info.pop() + " |");
-                if (p.next == null)
-                    System.out.println("Ridi");
-                number++;
+                colorsTemp[j] = p.info.pop();
+                System.out.print(String.format(" | %-6s | " , colorsTemp[j]));
+                j++;
             } while (p != head);
-            for (int j = 0; j < number; j++) {
-                p = p.prev;
-            }
             System.out.println();
         }
     }
