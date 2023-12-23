@@ -6,9 +6,10 @@ import java.util.Scanner;
 public class main {
 
     public static void main(String[] args) {
-        WaterSortGame waterSortGame = new WaterSortGame("blue green yellow" , 4);
+        WaterSortGame waterSortGame = new WaterSortGame("blue green yellow cyan" , 4);
         Bottle mybottle = new Bottle(4);
         Bottle mybottle2 = new Bottle(4);
+        Bottle mybottle3 = new Bottle(4);
         System.out.println(mybottle.insert("blue"));
         System.out.println(mybottle.insert("green"));
         System.out.println(mybottle.insert("yellow"));
@@ -17,10 +18,15 @@ public class main {
         System.out.println(mybottle2.insert("purple"));
         System.out.println(mybottle2.insert("red"));
         System.out.println(mybottle2.insert("green"));
+        System.out.println(mybottle3.insert("red"));
+        System.out.println(mybottle3.insert("purple"));
+        System.out.println(mybottle3.insert("yellow"));
+        System.out.println(mybottle3.insert("cyan"));
         ClinkedList bottleClinkedList = new ClinkedList();
         bottleClinkedList.AddCnode(mybottle);
         bottleClinkedList.AddCnode(mybottle2);
-        waterSortGame.display(4 , bottleClinkedList);
+        bottleClinkedList.AddCnode(mybottle3);
+        waterSortGame.display(4, bottleClinkedList);
     }
 
     private static void gameplay(LinkedList Bottles) {

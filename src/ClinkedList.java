@@ -63,6 +63,7 @@ public class ClinkedList {
         myNode p = this.head;
         int j = 0;
         String [] colorsTemp = new String[maxbottleSize * (maxbottleSize + 1)];
+        //Pop items from each Bottle and add it to a temp String
         for (int i = 0; i < maxbottleSize; i++) {
             do {
                 p = p.next;
@@ -89,6 +90,14 @@ public class ClinkedList {
                 j++;
             } while (p != head);
             System.out.println();
+        }
+        //pop from that temp string and insert each element to Bottle
+        p = this.tail;
+        for (int i =colorsTemp.length - 1; i > 0; i--) {
+            do {
+                p = p.next;
+                System.out.println(p.info.insert(colorsTemp[i]));
+            }while (p != head);
         }
     }
 
