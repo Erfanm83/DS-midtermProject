@@ -12,8 +12,8 @@ public class WaterSortGame {
     public WaterSortGame(String colors, int maxbottlesize , ClinkedList bottleList) {
         //The number of spaces is one less than the number of colors
         //and the number of bottles are one greater than the number of colors
-        this.numberOfBottles = WaterSortGame.countSpaces(colors) + 2;
-        this.colors = colors + "Empty";
+        this.numberOfBottles = WaterSortGame.countSpaces(colors + " Empty") + 2;
+        this.colors = colors + " Empty";
         this.maxbottlesize = maxbottlesize;
         this.bottleList = bottleList;
         initialize(maxbottlesize, bottleList , colors);
