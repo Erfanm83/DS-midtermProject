@@ -30,7 +30,7 @@ public class main {
             main.clinkedList = new ClinkedList();
             main.waterSortGame = new WaterSortGame(main.bottleColors, main.maxBottleSize, main.clinkedList);
             main.waterSortGame.display(main.maxBottleSize, main.clinkedList, 1);
-            gameplay(main.waterSortGame, main.clinkedList);
+//            gameplay(main.waterSortGame, main.clinkedList);
         } catch (RuntimeException exception) {
             throw new RuntimeException("<! An Unexpected ERROR Just Happened !>");
         }
@@ -93,7 +93,6 @@ public class main {
                     break;
                 default:
                     System.out.println("\u001B[0m" + "type any action to continue..." + "\u001B[0m");
-//                    System.out.println("\u001B[31m" + "Sorry , action you typed not recognized . try again" + "\u001B[31m");
                     break;
             }
         }

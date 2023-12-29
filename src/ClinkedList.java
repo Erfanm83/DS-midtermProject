@@ -25,15 +25,19 @@ public class ClinkedList {
     public void AddCnode(Bottle value) {
         myNode newNode = new myNode(value);
 
-        if (head == null) {
-            head = newNode;
+        try {
+            if (head == null) {
+                head = newNode;
+                tail = newNode;
+            } else {
+                tail.next = newNode;
+            }
+            numberofNodes++;
             tail = newNode;
-        } else {
-            tail.next = newNode;
+            tail.next = head;
+        } catch (RuntimeException exception) {
+            throw new RuntimeException("Error Creating new Node !");
         }
-        numberofNodes++;
-        tail = newNode;
-        tail.next = head;
     }
 
     //Delete node to linked list
@@ -68,56 +72,72 @@ public class ClinkedList {
         }
         myNode p = this.head;
         int j = 0;
-        String[] colorsTemp = new String[maxbottleSize * getnumberofNodes() + 1];
+        String[] colorsTemp = new String[maxbottleSize * getnumberofNodes() + 10];
         // Pop items from each Bottle and add it to a temp String
-        do {
-            if (!p.info.isEmpty()) {
-                String poppedColor = p.info.pop();
-                colorsTemp[j] = poppedColor;
-                j++;
-            }
-            p = p.next;
-        } while (p != head);
-
-        // Print colorsTemp on the console
-        for (int i = 0; i < maxbottleSize; i++) {
-            for (int k = 0; k < getnumberofNodes() ; k++) {
-                System.out.print(ANSI_RESET + " | " + ANSI_RESET);
-                if (i < colorsTemp.length) {
-                    switch (colorsTemp[i]) {
-                        case "red" -> System.out.print(ANSI_RED + String.format("%-6s", colorsTemp[i]) + ANSI_RED);
-                        case "blue" -> System.out.print(ANSI_BLUE + String.format("%-6s", colorsTemp[i]) + ANSI_BLUE);
-                        case "yellow" -> System.out.print(ANSI_YELLOW + String.format("%-6s", colorsTemp[i]) + ANSI_YELLOW);
-                        case "green" -> System.out.print(ANSI_GREEN + String.format("%-6s", colorsTemp[i]) + ANSI_GREEN);
-                        case "cyan" -> System.out.print(ANSI_CYAN + String.format("%-6s", colorsTemp[i]) + ANSI_CYAN);
-                        case "purple" -> System.out.print(ANSI_PURPLE + String.format("%-6s", colorsTemp[i]) + ANSI_PURPLE);
-                        //this is a trick that we consider Empty str as a color and print it in Black Color
-                        case "Empty" -> System.out.print(ANSI_BLACK + String.format("%-6s", colorsTemp[i]) + ANSI_BLACK);
-                        default -> System.out.print(colorsTemp[i]);
-                    }
-                    System.out.print(ANSI_RESET + " | " + ANSI_RESET);
+        for (int k = 0; k < getnumberofNodes(); k++) {
+            do {
+                if (!p.info.isEmpty()) {
+                    String poppedColor = p.info.pop();
+                    colorsTemp[j] = poppedColor;
+                    System.out.println("poppedColor = " + poppedColor);
+                    j++;
                 }
+                p = p.next;
+            } while (p != head);
+        }
+        for (String color : colorsTemp) {
+            System.out.println("color : " + color);
+        }
+        // Print colorsTemp on the console
+        int colorsTempIndex = 0;
+        for (int i = 0; i < maxbottleSize; i++) {
+            for (int k = 0; k < getnumberofNodes(); k++) {
+                System.out.print(ANSI_RESET + " | " + ANSI_RESET);
+            if (colorsTempIndex < colorsTemp.length) {
+                switch (colorsTemp[colorsTempIndex]) {
+                    case "red" -> {System.out.print(ANSI_RED + String.format("%-6s", colorsTemp[colorsTempIndex]) + ANSI_RED);
+                        colorsTempIndex++;}
+                    case "blue" -> {System.out.print(ANSI_BLUE + String.format("%-6s", colorsTemp[colorsTempIndex]) + ANSI_BLUE);
+                        colorsTempIndex++;}
+                    case "yellow" -> {System.out.print(ANSI_YELLOW + String.format("%-6s", colorsTemp[colorsTempIndex]) + ANSI_YELLOW);
+                        colorsTempIndex++;}
+                    case "green" -> {System.out.print(ANSI_GREEN + String.format("%-6s", colorsTemp[colorsTempIndex]) + ANSI_GREEN);
+                        colorsTempIndex++;}
+                    case "cyan" -> {System.out.print(ANSI_CYAN + String.format("%-6s", colorsTemp[colorsTempIndex]) + ANSI_CYAN);
+                        colorsTempIndex++;}
+                    case "purple" -> {System.out.print(ANSI_PURPLE + String.format("%-6s", colorsTemp[colorsTempIndex]) + ANSI_PURPLE);
+                        colorsTempIndex++;}
+                    //this is a trick that we consider Empty str as a color and print it in Black Color
+                    case "Empty" -> {System.out.print(ANSI_WHITE + String.format("%-6s", "Empty") + ANSI_WHITE);
+                        colorsTempIndex++;}
+                    default -> {
+                        System.out.print(colorsTemp[colorsTempIndex]);
+                        colorsTempIndex++;
+                    }
+                }
+                System.out.print(ANSI_RESET + " | " + ANSI_RESET);
             }
+        }
             System.out.println();
         }
         //Mark the Selected Bottle
-        for (int i = 0; i < selectedBottle; i++) {
+        for (int s = 0; s < selectedBottle; s++) {
             System.out.print("            ");
         }
-        int k = 0;
+        int index = 0;
         for (int l = 0; l < getnumberofNodes() + 1; l++) {
             p = p.next;
-            if (selectedBottle == k) {
+            if (selectedBottle == index) {
                 System.out.println("  ---#---");
             }
-            k++;
+            index++;
         }
         // Insert each element back to Bottle
         p = this.tail;
-        for (int i = j - 1; i >= 0; i--) {
+        for (int h = j - 1; h >= 0; h--) {
             do {
                 p = p.next;
-                p.info.insert(colorsTemp[i]);
+                p.info.insert(colorsTemp[h]);
             } while (p != head);
         }
     }
