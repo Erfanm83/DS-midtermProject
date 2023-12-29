@@ -1,20 +1,21 @@
 import java.util.Scanner;
 
 public class main {
-    private static int maxBottleSize;
+    private static int maxBottleSize = 0;
     private static String bottleColors;
-    private static WaterSortGame waterSortGame ;
+    private static WaterSortGame waterSortGame;
+    private static ClinkedList clinkedList;
 
     public static void main(String[] args) {
-        System.out.println("*** Welcome to WaterSortGame ***");
+        System.out.println("\u001B[32m" + "*** Welcome to WaterSortGame ***" + "\u001B[32m");
         Scanner scanner = new Scanner(System.in);
         String action = " ";
 
         while (!action.toLowerCase().contains("start")){
-            System.out.println("type \"start\" to Start Game...");
+            System.out.println("\u001B[33m" + "type \"start\" to Start Game..." + "\u001B[33m");
             action = scanner.nextLine();
         }
-        System.out.println("Game started...");
+        System.out.println("\u001B[0m" + "Game started..." + "\u001B[0m");
         //asking to enter colors
         System.out.println("Please enter colors...");
         try {
@@ -25,40 +26,43 @@ public class main {
         //asking for maxBottleSize
         System.out.println("Please enter Max Bottle Size...");
         try {
-            main.maxBottleSize = Integer.parseInt(scanner.nextLine());
-            main.waterSortGame = new WaterSortGame(main.bottleColors , main.maxBottleSize);
+            main.maxBottleSize = scanner.nextInt();
+            main.clinkedList = new ClinkedList();
+            main.waterSortGame = new WaterSortGame(main.bottleColors , main.maxBottleSize , main.clinkedList);
+            main.waterSortGame.display(main.maxBottleSize , main.clinkedList , 1);
+//            gameplay(main.waterSortGame , main.clinkedList);
         }catch (RuntimeException exception){
-            throw new RuntimeException("Please enter Max Bottle Size as a number");
+            throw new RuntimeException("<! An Unexpected ERROR Just Happened !>");
         }
-        System.out.println("type anything to continue...");
     }
 
     //The GamePlay of WaterSortGame all happens here
-    private static void gameplay(ClinkedList bottleList) {
-        System.out.println("*** Welcome to WaterSortGame ***");
+    private static void gameplay(WaterSortGame waterSortGame , ClinkedList bottleList) {
         Scanner scanner = new Scanner(System.in);
         String action = " ";
-        boolean quit = false;
         boolean selectNext = true;
         int EmptyBottles = 0;
         int selectedBottle;
 
-        while (!quit) {
+        while (!waterSortGame.hasWon()) {
+            System.out.println("\u001B[0m" + "type any action to continue..." + "\u001B[0m");
             action = scanner.nextLine();
             switch(action) {
                 case "select":
-                    selectedBottle = scanner.nextInt();
-                    main.waterSortGame.select(selectedBottle);
+                    do {
+                        System.out.println("enter bottle number from 1 to " + main.waterSortGame.getNumberOfBottles());
+                        selectedBottle = scanner.nextInt();
+                        waterSortGame.select(selectedBottle, bottleList, main.maxBottleSize);
+                    }while (!waterSortGame.select(selectedBottle, bottleList, main.maxBottleSize));
                     break;
                 case "deSelect":
                     selectedBottle = scanner.nextInt();
-                    main.waterSortGame.deselect();
+                    waterSortGame.deselect();
                     break;
                 case "selectNext":
                     selectedBottle = scanner.nextInt();
-                    main.waterSortGame.selectNext();
+                    waterSortGame.selectNext();
                     if(!selectNext) {
-//                        }
                         selectNext = true;
                     }
                     break;
@@ -68,19 +72,19 @@ public class main {
                     break;
                 case "pour":
                     selectedBottle = scanner.nextInt();
-                    main.waterSortGame.pour(selectedBottle);
+                    waterSortGame.pour(selectedBottle);
                     break;
                 case "swap":
                     selectedBottle = scanner.nextInt();
-                    main.waterSortGame.swap(selectedBottle);
+                    waterSortGame.swap(selectedBottle);
                     break;
                 case "ReplaceColor":
                     break;
                 case "undo":
-                    main.waterSortGame.undo();
+                    waterSortGame.undo();
                     break;
                 case "redu":
-                    main.waterSortGame.redo();
+                    waterSortGame.redo();
                     break;
                 case "addEmptyBottle":
                     EmptyBottles ++;
@@ -88,12 +92,14 @@ public class main {
 
                     }
                     break;
-                case "quit":
-                    System.out.println("Thanks for choosing my game to play !");
-                    quit = true;
+                default:
+                    System.out.println("\u001B[31m" + "Sorry , action you typed not recognized . try again" + "\u001B[31m");
                     break;
-
             }
         }
+        System.out.println("********************************");
+        System.out.println("\u001B[34m" + "Congratulations, You won the Game !!!" + "\u001B[34m");
+        System.out.println("********************************");
+        System.out.println("\u001B[35m" + "Thanks for choosing my game to play !" + "\u001B[35m");
     }
 }

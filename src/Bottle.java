@@ -13,7 +13,7 @@ public class Bottle {
 
     // Pop item from stack
     public String pop() {
-        if (Bottle.isEmpty(this.top)) {
+        if (isEmpty()) {
             System.out.println("Stack is empty, cannot pop!");
             return null;
         } else {
@@ -27,7 +27,6 @@ public class Bottle {
     // Insert an item to stack
     public boolean insert(String color) {
         if (top == maxBottleSize - 1) {
-            System.out.println("Bottle is full, cannot insert more colors!");
             return false;
         } else {
             top++;
@@ -36,8 +35,8 @@ public class Bottle {
         }
     }
 
-    public static Boolean isEmpty(int top) {
-        return top == -1;
+    public Boolean isEmpty() {
+        return this.top == -1;
     }
 
     // Get element at a specific index

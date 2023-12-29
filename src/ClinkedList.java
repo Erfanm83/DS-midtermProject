@@ -13,21 +13,25 @@ public class ClinkedList {
 
     private myNode head;
     private myNode tail;
+    private int numberofNodes = 0;
 
     //Constructor
     public ClinkedList() {
         this.head = null;
         this.tail = null;
     }
+
     //Add a node to linked list
     public void AddCnode(Bottle value) {
         myNode newNode = new myNode(value);
 
         if (head == null) {
             head = newNode;
-        }else {
+            tail = newNode;
+        } else {
             tail.next = newNode;
         }
+        numberofNodes++;
         tail = newNode;
         tail.next = head;
     }
@@ -55,56 +59,90 @@ public class ClinkedList {
                 break;
             }
             currentNode = nextNode;
-        } while (currentNode != head) ;
+        } while (currentNode != head);
     }
 
-    public void show(int maxbottleSize) {
+    public void show(int maxbottleSize, int selectedBottle) {
         if (this.head == null) {
             System.out.println("Circular Queue is empty.");
         }
         myNode p = this.head;
         int j = 0;
-        String [] colorsTemp = new String[maxbottleSize * (maxbottleSize + 1)];
+//        System.out.println("getnumberofNodes : " + getnumberofNodes());
+        String[] colorsTemp = new String[maxbottleSize * getnumberofNodes() + 1];
         //Pop items from each Bottle and add it to a temp String
-        for (int i = 0; i < maxbottleSize; i++) {
-            do {
-                p = p.next;
-                colorsTemp[j] = p.info.pop();
-                System.out.print(ANSI_RESET + " | " + ANSI_RESET);
-                switch (colorsTemp[j]) {
-                    case "red" ->
-                            System.out.print(ANSI_RED + String.format("%-6s", colorsTemp[j]) + ANSI_RED); // Red text
-                    case "blue" ->
-                            System.out.print(ANSI_BLUE + String.format("%-6s", colorsTemp[j]) + ANSI_BLUE); // Blue text
-                    case "yellow" ->
-                            System.out.print(ANSI_YELLOW + String.format("%-6s", colorsTemp[j]) + ANSI_YELLOW); // Yellow text
-                    case "green" ->
-                            System.out.print(ANSI_GREEN + String.format("%-6s", colorsTemp[j]) + ANSI_GREEN); // Green text
-                    case "black" ->
-                            System.out.print(ANSI_BLACK + String.format("%-6s", colorsTemp[j]) + ANSI_BLACK); // Black text
-                    case "cyan" ->
-                            System.out.print(ANSI_CYAN + String.format("%-6s", colorsTemp[j]) + ANSI_CYAN); // Cyan text
-                    case "purple" ->
-                            System.out.print(ANSI_PURPLE + String.format("%-6s", colorsTemp[j]) + ANSI_PURPLE); // Purple text
-                    default -> System.out.print(colorsTemp[j]);
-                }
-                System.out.print(ANSI_RESET + " | " + ANSI_RESET);
+        // Pop items from each Bottle and add it to a temp String
+        do {
+            if (!p.info.isEmpty()) {
+                String poppedColor = p.info.pop();
+                colorsTemp[j] = poppedColor;
                 j++;
-            } while (p != head);
+            }
+            p = p.next;
+        } while (p != head);
+
+        // Print colorsTemp on the console
+        for (int i = 0; i < maxbottleSize; i++) {
+            for (int k = 0; k < getnumberofNodes() + 1; k++) {
+                System.out.print(ANSI_RESET + " | " + ANSI_RESET);
+                if (i < colorsTemp.length) {
+                    switch (colorsTemp[i]) {
+                        case "red" -> System.out.print(ANSI_RED + String.format("%-6s", colorsTemp[i]) + ANSI_RED);
+                        case "blue" -> System.out.print(ANSI_BLUE + String.format("%-6s", colorsTemp[i]) + ANSI_BLUE);
+                        case "yellow" -> System.out.print(ANSI_YELLOW + String.format("%-6s", colorsTemp[i]) + ANSI_YELLOW);
+                        case "green" -> System.out.print(ANSI_GREEN + String.format("%-6s", colorsTemp[i]) + ANSI_GREEN);
+                        case "cyan" -> System.out.print(ANSI_CYAN + String.format("%-6s", colorsTemp[i]) + ANSI_CYAN);
+                        case "purple" -> System.out.print(ANSI_PURPLE + String.format("%-6s", colorsTemp[i]) + ANSI_PURPLE);
+                        //this is a trick that we consider Empty str as a color and print it in Black Color
+                        case "Empty" -> System.out.print(ANSI_BLACK + String.format("%-6s", colorsTemp[i]) + ANSI_BLACK);
+                        default -> System.out.print(colorsTemp[i]);
+                    }
+                    System.out.print(ANSI_RESET + " | " + ANSI_RESET);
+                }
+            }
             System.out.println();
         }
-        //pop from that temp string and insert each element to Bottle
+        //Mark the Selected Bottle
+        for (int i = 0; i < selectedBottle; i++) {
+            System.out.print("            ");
+        }
+        int k = 0;
+        for (int l = 0; l < getnumberofNodes() + 1; l++) {
+            p = p.next;
+            if (selectedBottle == k) {
+                System.out.println("  ---#---");
+            }
+            k++;
+        }
+        // Insert each element back to Bottle
         p = this.tail;
-        for (int i =colorsTemp.length - 1; i > 0; i--) {
+        for (int i = j - 1; i >= 0; i--) {
             do {
                 p = p.next;
                 p.info.insert(colorsTemp[i]);
-            }while (p != head);
+            } while (p != head);
         }
     }
 
+    //check to see whether CLinkedList is Empty or not
     public Boolean isEmpty() {
         return head == null;
+    }
+
+    //counts number of nodes
+    public int getnumberofNodes() {
+        int k = 0;
+        do {
+            if (head == null)
+                return 0;
+            head = head.next;
+            k++;
+        } while (head != tail);
+        return k;
+    }
+
+    public void setnumberofNodes(int numberofNodes) {
+        this.numberofNodes = numberofNodes;
     }
 }
 
