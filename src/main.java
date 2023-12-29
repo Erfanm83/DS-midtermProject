@@ -11,7 +11,7 @@ public class main {
         Scanner scanner = new Scanner(System.in);
         String action = " ";
 
-        while (!action.toLowerCase().contains("start")){
+        while (!action.toLowerCase().contains("start")) {
             System.out.println("\u001B[33m" + "type \"start\" to Start Game..." + "\u001B[33m");
             action = scanner.nextLine();
         }
@@ -20,7 +20,7 @@ public class main {
         System.out.println("Please enter colors...");
         try {
             main.bottleColors = String.valueOf(scanner.nextLine());
-        }catch (RuntimeException exception){
+        } catch (RuntimeException exception) {
             throw new RuntimeException("Please enter Valid Colors");
         }
         //asking for maxBottleSize
@@ -28,32 +28,31 @@ public class main {
         try {
             main.maxBottleSize = scanner.nextInt();
             main.clinkedList = new ClinkedList();
-            main.waterSortGame = new WaterSortGame(main.bottleColors , main.maxBottleSize , main.clinkedList);
-            main.waterSortGame.display(main.maxBottleSize , main.clinkedList , 1);
-            gameplay(main.waterSortGame , main.clinkedList);
-        }catch (RuntimeException exception){
+            main.waterSortGame = new WaterSortGame(main.bottleColors, main.maxBottleSize, main.clinkedList);
+            main.waterSortGame.display(main.maxBottleSize, main.clinkedList, 1);
+            gameplay(main.waterSortGame, main.clinkedList);
+        } catch (RuntimeException exception) {
             throw new RuntimeException("<! An Unexpected ERROR Just Happened !>");
         }
     }
 
     //The GamePlay of WaterSortGame all happens here
-    private static void gameplay(WaterSortGame waterSortGame , ClinkedList bottleList) {
+    private static void gameplay(WaterSortGame waterSortGame, ClinkedList bottleList) {
         Scanner scanner = new Scanner(System.in);
         String action = " ";
         boolean selectNext = true;
         int EmptyBottles = 0;
         int selectedBottle;
+        System.out.println("\u001B[0m" + "type any action to continue..." + "\u001B[0m");
+
 
         while (!waterSortGame.hasWon()) {
-            System.out.println("\u001B[0m" + "type any action to continue..." + "\u001B[0m");
             action = scanner.nextLine();
-            switch(action) {
+            switch (action) {
                 case "select":
-                    do {
-                        System.out.println("enter bottle number from 1 to " + main.waterSortGame.getNumberOfBottles());
-                        selectedBottle = scanner.nextInt();
-                        waterSortGame.select(selectedBottle - 1, bottleList, main.maxBottleSize);
-                    }while (!waterSortGame.select(selectedBottle, bottleList, main.maxBottleSize));
+                    System.out.println("enter bottle number from 1 to " + main.waterSortGame.getNumberOfBottles());
+                    selectedBottle = scanner.nextInt();
+                    waterSortGame.select(selectedBottle, bottleList, main.maxBottleSize);
                     break;
                 case "deSelect":
                     selectedBottle = scanner.nextInt();
@@ -62,12 +61,12 @@ public class main {
                 case "selectNext":
                     selectedBottle = scanner.nextInt();
                     waterSortGame.selectNext();
-                    if(!selectNext) {
+                    if (!selectNext) {
                         selectNext = true;
                     }
                     break;
                 case "selectPrevious":
-                    if(selectNext) {
+                    if (selectNext) {
                     }
                     break;
                 case "pour":
@@ -87,12 +86,13 @@ public class main {
                     waterSortGame.redo();
                     break;
                 case "addEmptyBottle":
-                    EmptyBottles ++;
-                    if (EmptyBottles == 1){
+                    EmptyBottles++;
+                    if (EmptyBottles == 1) {
 
                     }
                     break;
                 default:
+                    System.out.println("\u001B[0m" + "type any action to continue..." + "\u001B[0m");
 //                    System.out.println("\u001B[31m" + "Sorry , action you typed not recognized . try again" + "\u001B[31m");
                     break;
             }

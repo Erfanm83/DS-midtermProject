@@ -77,7 +77,7 @@ public class WaterSortGame {
             System.out.println("<! Please Enter a Number between 1 and " + getNumberOfBottles() + " >!");
             isSelected = false;
         }else {
-            display(maxbottlesize , bottleList , selectedBottle);
+            display(maxbottlesize , bottleList , selectedBottle - 1);
             System.out.println("Bottle " + selectedBottle + " selected Successfully !");
             isSelected = true;
         }
