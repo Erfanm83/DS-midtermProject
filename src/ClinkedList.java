@@ -66,13 +66,14 @@ public class ClinkedList {
         } while (currentNode != head);
     }
 
+    //show method for printing colors colorfully on console
     public void show(int maxbottleSize, int selectedBottle) {
         if (this.head == null) {
             System.out.println("Circular Queue is empty.");
         }
         myNode p = this.head;
         int j = 0;
-        String[] colorsTemp = new String[maxbottleSize * getnumberofNodes() + 10];
+        String[] colorsTemp = new String[maxbottleSize * (getnumberofNodes() + 1)];
         // Pop items from each Bottle and add it to a temp String
         for (int k = 0; k < getnumberofNodes(); k++) {
             do {
@@ -83,6 +84,10 @@ public class ClinkedList {
                 }
                 p = p.next;
             } while (p != head);
+        }
+        System.out.println("getnumberofNodes() : " + getnumberofNodes());
+        for (String color: colorsTemp) {
+            System.out.println("color : " + color);
         }
         // Print colorsTemp on the console
         int colorsTempIndex = 0;
@@ -130,10 +135,14 @@ public class ClinkedList {
         }
         // Insert each element back to Bottle
         p = this.tail;
+        System.out.println("j : " + j);
         for (int h = j - 1; h >= 0; h--) {
             do {
                 p = p.next;
-                p.info.insert(colorsTemp[h]);
+                if (colorsTemp[h] != null) {
+                    System.out.println(p.info.insert(colorsTemp[h]));
+                    System.out.println("colorsTemp[h] : " + colorsTemp[h]);
+                }
             } while (p != head);
         }
     }

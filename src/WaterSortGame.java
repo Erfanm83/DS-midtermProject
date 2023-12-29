@@ -118,9 +118,9 @@ public class WaterSortGame {
     }
     //check to see if User had Won the Game or not
     public Boolean hasWon(){
-        Boolean Haswon = false;
+        Boolean hasWon = false;
         //implementation
-        return Haswon;
+        return hasWon;
     }
     //Undo Method
     public void undo(){
