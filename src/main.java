@@ -30,7 +30,7 @@ public class main {
             main.clinkedList = new ClinkedList();
             main.waterSortGame = new WaterSortGame(main.bottleColors, main.maxBottleSize, main.clinkedList);
             main.waterSortGame.display(main.maxBottleSize, main.clinkedList, 1);
-//            gameplay(main.waterSortGame, main.clinkedList);
+            gameplay(main.waterSortGame, main.clinkedList);
         } catch (RuntimeException exception) {
             throw new RuntimeException("<! An Unexpected ERROR Just Happened !>");
         }

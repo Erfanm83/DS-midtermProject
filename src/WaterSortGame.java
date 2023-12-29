@@ -20,9 +20,7 @@ public class WaterSortGame {
         String[] colorArray = colors.split("\\s+");
         List<String> colorList = new ArrayList<>(Arrays.asList(colorArray));
         Collections.shuffle(colorList);
-        System.out.println("Outside of initialize , colorList : " + colorList);
         initialize(maxbottlesize, bottleList, colorList);
-//        initialize(maxbottlesize, bottleList , colors);
     }
 
     public int getNumberOfBottles() {
@@ -32,20 +30,17 @@ public class WaterSortGame {
     private void initialize(int maxBottleSize, ClinkedList clinkedList, List<String> colorList) {
         Iterator<String> iterator = colorList.iterator();
         for (int i = 0; i < getNumberOfBottles() - 1; i++) {
-//            Iterator<String> iterator = colorList.iterator();
             Bottle bottle = new Bottle(maxBottleSize);
 
             Collections.shuffle(colorList);
-            System.out.println("colorList : " + colorList);
-            // Assign colors from the shuffled list to each bottle
             while (iterator.hasNext()) {
                 // Assign colors from the shuffled list to each bottle
-                System.out.println(bottle.insert(iterator.next()));
+                bottle.insert(iterator.next());
             }
-//            RandomColor(bottle , colorList);
             clinkedList.AddCnode(bottle);
             try {
-                iterator = colorList.iterator(); // Reset iterator for the next bottle
+                // Reset iterator for the next bottle
+                iterator = colorList.iterator();
             }catch (RuntimeException exception) {
                 throw new RuntimeException("can not set iterator on the colors List");
             }
@@ -54,24 +49,11 @@ public class WaterSortGame {
         // The last bottle is an empty bottle
         Bottle emptyBottle = new Bottle(maxBottleSize);
         // Assign a single color "Empty" to the empty bottle
-//        RandomColor(emptyBottle, Arrays.asList("Empty"));
         for (int i = 0; i < maxBottleSize; i++) {
-            System.out.println(emptyBottle.insert("Empty"));
+            emptyBottle.insert("Empty");
         }
         clinkedList.AddCnode(emptyBottle);
     }
-//    private void initialize(int maxBottleSize , ClinkedList clinkedList , String colors){
-//        for (int i = 0; i < getNumberOfBottles() - 1; i++) {
-//            Bottle bottle = new Bottle(maxBottleSize);
-//            RandomColor(bottle , colors);
-//            clinkedList.AddCnode(bottle);
-//        }
-//        // The last bottle is an empty bottle
-//        Bottle emptyBottle = new Bottle(maxBottleSize);
-//        RandomColor(emptyBottle , "Empty ");
-//        clinkedList.AddCnode(emptyBottle);
-//    }
-
     //Calculates the number of spaces
     public static int countSpaces(String input) {
         int spaceCount = 0;
@@ -82,37 +64,6 @@ public class WaterSortGame {
         }
         return spaceCount;
     }
-    // random method for random selection of colors for bottles
-    public void RandomColor(Bottle bottle, List<String> colorList) {
-        // Shuffle the list of colors before assigning them to the bottle
-//        Collections.shuffle(colorList);
-        // Assign colors from the shuffled list to the bottle
-        for (String color : colorList) {
-            bottle.insert(color);
-        }
-    }
-    //random method for random selection of colors for bottles
-//    public void RandomColor(Bottle bottle, String colorsString) {
-//        String[] colors = colorsString.split("\\s+");
-//
-//        if (colors.length == 0) {
-//            System.out.println("No colors provided.");
-//            return;
-//        }
-//
-//        // Shuffle the array of colors
-//        List<String> colorList = Arrays.asList(colors);
-//        Collections.shuffle(colorList);
-//
-//        // Assign colors to bottles based on the shuffled order
-//        for (String color : colorList) {
-//            bottle.insert(color);
-//        }
-//
-////        Random random = new Random();
-////        String randomColor = colors[random.nextInt(colors.length)];
-////        bottle.insert(randomColor);
-//    }
     //display method for displaying bottle stuff
     public void display(int maxbottlesize, ClinkedList bottleList , int selectedBottle){
         bottleList.show(maxbottlesize , selectedBottle);

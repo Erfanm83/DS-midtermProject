@@ -79,14 +79,10 @@ public class ClinkedList {
                 if (!p.info.isEmpty()) {
                     String poppedColor = p.info.pop();
                     colorsTemp[j] = poppedColor;
-                    System.out.println("poppedColor = " + poppedColor);
                     j++;
                 }
                 p = p.next;
             } while (p != head);
-        }
-        for (String color : colorsTemp) {
-            System.out.println("color : " + color);
         }
         // Print colorsTemp on the console
         int colorsTempIndex = 0;
