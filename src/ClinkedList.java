@@ -68,9 +68,7 @@ public class ClinkedList {
         }
         myNode p = this.head;
         int j = 0;
-//        System.out.println("getnumberofNodes : " + getnumberofNodes());
         String[] colorsTemp = new String[maxbottleSize * getnumberofNodes() + 1];
-        //Pop items from each Bottle and add it to a temp String
         // Pop items from each Bottle and add it to a temp String
         do {
             if (!p.info.isEmpty()) {

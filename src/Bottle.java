@@ -38,39 +38,4 @@ public class Bottle {
     public Boolean isEmpty() {
         return this.top == -1;
     }
-
-    // Get element at a specific index
-    public String getElementAt(int index) {
-        if (index < 0 || index > top) {
-            System.out.println("Invalid index!");
-            return null;
-        }
-        return bottleColors[index];
-    }
-
-    public int getMaxBottleSize() {
-        return maxBottleSize;
-    }
-
-    // Override toString method
-    @Override
-    public String toString() {
-        if (bottleColors == null) {
-            StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.append("|    |\n".repeat(Math.max(0, maxBottleSize)));
-            return "| Empty |";
-        }
-
-        StringBuilder result = new StringBuilder();
-        for (int i = bottleColors.length - 1; i >= 0; i--) {
-            String color = bottleColors[i];
-            if (color != null) {
-                result.append(String.format("| %-6s |\n", color));
-            }
-        }
-        if (result.length() == 0) {
-            return "| Empty |";
-        }
-        return result.toString();
-    }
 }
