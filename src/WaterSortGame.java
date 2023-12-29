@@ -12,8 +12,8 @@ public class WaterSortGame {
     public WaterSortGame(String colors, int maxbottlesize , ClinkedList bottleList) {
         //The number of spaces is one less than the number of colors
         //and the number of bottles are one greater than the number of colors
-        this.numberOfBottles = WaterSortGame.countSpaces(colors + " Empty") + 2;
-        this.colors = colors + " Empty";
+        this.numberOfBottles = WaterSortGame.countSpaces(colors) + 2;
+        this.colors = colors;
         this.maxbottlesize = maxbottlesize;
         this.bottleList = bottleList;
         initialize(maxbottlesize, bottleList , colors);
@@ -29,13 +29,13 @@ public class WaterSortGame {
 //    }
 
     private void initialize(int maxBottleSize , ClinkedList clinkedList , String colors){
-        for (int i = 0; i < getNumberOfBottles(); i++) {
+        for (int i = 0; i < getNumberOfBottles() - 1; i++) {
             Bottle bottle = new Bottle(maxBottleSize);
             RandomColor(bottle , colors);
             clinkedList.AddCnode(bottle);
         }
         Bottle EmptyBottle = new Bottle(maxBottleSize);
-        RandomColor(EmptyBottle , "Empty");
+        RandomColor(EmptyBottle , "Empty ");
         clinkedList.AddCnode(EmptyBottle);
     }
 
@@ -78,7 +78,7 @@ public class WaterSortGame {
             isSelected = false;
         }else {
             display(maxbottlesize , bottleList , selectedBottle);
-            System.out.println("Bottle" + selectedBottle + "selected Successfully !");
+            System.out.println("Bottle " + selectedBottle + " selected Successfully !");
             isSelected = true;
         }
         return isSelected;

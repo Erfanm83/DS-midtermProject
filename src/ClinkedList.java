@@ -81,7 +81,7 @@ public class ClinkedList {
 
         // Print colorsTemp on the console
         for (int i = 0; i < maxbottleSize; i++) {
-            for (int k = 0; k < getnumberofNodes() + 1; k++) {
+            for (int k = 0; k < getnumberofNodes() ; k++) {
                 System.out.print(ANSI_RESET + " | " + ANSI_RESET);
                 if (i < colorsTemp.length) {
                     switch (colorsTemp[i]) {

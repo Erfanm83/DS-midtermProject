@@ -52,7 +52,7 @@ public class main {
                     do {
                         System.out.println("enter bottle number from 1 to " + main.waterSortGame.getNumberOfBottles());
                         selectedBottle = scanner.nextInt();
-                        waterSortGame.select(selectedBottle, bottleList, main.maxBottleSize);
+                        waterSortGame.select(selectedBottle - 1, bottleList, main.maxBottleSize);
                     }while (!waterSortGame.select(selectedBottle, bottleList, main.maxBottleSize));
                     break;
                 case "deSelect":
@@ -93,7 +93,7 @@ public class main {
                     }
                     break;
                 default:
-                    System.out.println("\u001B[31m" + "Sorry , action you typed not recognized . try again" + "\u001B[31m");
+//                    System.out.println("\u001B[31m" + "Sorry , action you typed not recognized . try again" + "\u001B[31m");
                     break;
             }
         }
