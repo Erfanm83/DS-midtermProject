@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class main {
@@ -43,6 +44,7 @@ public class main {
         boolean selectNext = true;
         int EmptyBottles = 0;
         int selectedBottle;
+        int undoRedo = 5;
         System.out.println("\u001B[0m" + "type any action to continue..." + "\u001B[0m");
 
 
@@ -70,26 +72,42 @@ public class main {
                     }
                     break;
                 case "pour":
-                    selectedBottle = scanner.nextInt();
-                    waterSortGame.pour(selectedBottle);
+                    int bottleToPour = scanner.nextInt();
+                    waterSortGame.pour(bottleToPour);
                     break;
                 case "swap":
-                    selectedBottle = scanner.nextInt();
-                    waterSortGame.swap(selectedBottle);
+                    int bottleToSwap = scanner.nextInt();
+                    waterSortGame.swap(bottleToSwap);
                     break;
                 case "ReplaceColor":
+                    String inputString = scanner.nextLine();
+                    // Split the input string by space
+                    String[] parts = inputString.split("\\s+");
+                    if(parts.length == 2)
+                        waterSortGame.replaceColor(parts[0] , parts[1]);
+                    else
+                        System.out.println("please enter two colors separated by space.");
                     break;
                 case "undo":
-                    waterSortGame.undo();
+                    if (undoRedo > 0) {
+                        waterSortGame.undo();
+                        undoRedo--;
+                    }else
+                        System.out.println("you reached the maximum usage of undo.");
                     break;
-                case "redu":
-                    waterSortGame.redo();
+                case "redo":
+                    if (undoRedo > 0) {
+                        waterSortGame.redo();
+                        undoRedo--;
+                    }else
+                        System.out.println("you reached the maximum usage of redo.");
                     break;
                 case "addEmptyBottle":
                     EmptyBottles++;
                     if (EmptyBottles == 1) {
-
-                    }
+                        waterSortGame.addEmptyBottle();
+                    }else
+                        System.out.println("you reached the maximum usage of adding an empty Bottle");
                     break;
                 default:
                     System.out.println("\u001B[0m" + "type any action to continue..." + "\u001B[0m");

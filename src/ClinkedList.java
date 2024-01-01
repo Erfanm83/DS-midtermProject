@@ -21,6 +21,10 @@ public class ClinkedList {
         this.tail = null;
     }
 
+    public myNode getHead() {
+        return head;
+    }
+
     //Add a node to linked list
     public void AddCnode(Bottle value) {
         myNode newNode = new myNode(value);

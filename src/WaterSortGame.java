@@ -72,11 +72,8 @@ public class WaterSortGame {
     public Boolean select(int selectedBottle , ClinkedList bottleList , int maxbottlesize){
         Boolean isSelected = false;
         //Selected Bottle out of range
-        if (selectedBottle > getNumberOfBottles()){
+        if (!validBottle(selectedBottle)){
             System.out.println("!< Selected Bottle out of Range >!");
-            isSelected = false;
-        } else if (selectedBottle <= 0) {
-            System.out.println("<! Please Enter a Number between 1 and " + getNumberOfBottles() + " >!");
             isSelected = false;
         }else {
             display(maxbottlesize , bottleList , selectedBottle - 1);
@@ -90,21 +87,47 @@ public class WaterSortGame {
         //implementation
     }
     //selectNext method for selecting next item
-    public void selectNext(){
-
+    public Boolean selectNext(int currentSelected , ClinkedList bottleList, int maxbottlesize){
+        return select(currentSelected + 1 , bottleList , maxbottlesize);
     }
     //selectPrev method for selectiong prev item
-    public void selectPrev(){
-
+    public Boolean selectPrev(int currentSelected , ClinkedList bottleList, int maxbottlesize){
+        return select(currentSelected - 1 , bottleList , maxbottlesize);
     }
     //Pour method for pouring Bottles
-    public Boolean pour(int bottleNumber){
-        //implementation
-        return true;
+    public Boolean pour(int bottleToPour, int selectedBottle, int maxbottlesize , ClinkedList bottleList ){
+        Boolean isPoured = false;
+        //Selected Bottle out of range
+        if (!validBottle(bottleToPour)){
+            System.out.println("!< Selected Bottle out of Range >!");
+            isPoured = false;
+        }else {
+            //implementation
+            System.out.println("Bottle " + bottleToPour + " poured Successfully !");
+            isPoured = true;
+        }
+        return isPoured;
     }
     //Swap method for changing order of Bottles
-    public void swap(int bottleNumber){
-
+    public Boolean swap(int bottleToSwap, int selectedBottle, int maxbottlesize , ClinkedList bottleList){
+        Boolean isSwapped = false;
+        //Selected Bottle out of range
+        if (!validBottle(bottleToSwap)){
+            System.out.println("!< Selected Bottle out of Range >!");
+            isSwapped = false;
+        }else if (bottleToSwap == selectedBottle) {
+            System.out.println("Please Select Another Bottle To swap. ");
+            isSwapped = false;
+        }else {
+            //implementation
+            System.out.println("Bottle " + selectedBottle + " swapped with " +  bottleToSwap + " Successfully !");
+            isSwapped = true;
+        }
+        return isSwapped;
+    }
+    //check validation for Bottle Number
+    private Boolean validBottle(int bottleNumber){
+        return bottleNumber <= getNumberOfBottles() && bottleNumber > 0;
     }
     //ReplaceColor Method
     public void replaceColor(String firstColor, String secondColor){
