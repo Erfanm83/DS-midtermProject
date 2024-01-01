@@ -85,40 +85,50 @@ public class ClinkedList {
                 p = p.next;
             } while (p != head);
         }
-        System.out.println("getnumberofNodes() : " + getnumberofNodes());
-        for (String color: colorsTemp) {
-            System.out.println("color : " + color);
-        }
         // Print colorsTemp on the console
         int colorsTempIndex = 0;
         for (int i = 0; i < maxbottleSize; i++) {
             for (int k = 0; k < getnumberofNodes(); k++) {
                 System.out.print(ANSI_RESET + " | " + ANSI_RESET);
-            if (colorsTempIndex < colorsTemp.length) {
-                switch (colorsTemp[colorsTempIndex]) {
-                    case "red" -> {System.out.print(ANSI_RED + String.format("%-6s", colorsTemp[colorsTempIndex]) + ANSI_RED);
-                        colorsTempIndex++;}
-                    case "blue" -> {System.out.print(ANSI_BLUE + String.format("%-6s", colorsTemp[colorsTempIndex]) + ANSI_BLUE);
-                        colorsTempIndex++;}
-                    case "yellow" -> {System.out.print(ANSI_YELLOW + String.format("%-6s", colorsTemp[colorsTempIndex]) + ANSI_YELLOW);
-                        colorsTempIndex++;}
-                    case "green" -> {System.out.print(ANSI_GREEN + String.format("%-6s", colorsTemp[colorsTempIndex]) + ANSI_GREEN);
-                        colorsTempIndex++;}
-                    case "cyan" -> {System.out.print(ANSI_CYAN + String.format("%-6s", colorsTemp[colorsTempIndex]) + ANSI_CYAN);
-                        colorsTempIndex++;}
-                    case "purple" -> {System.out.print(ANSI_PURPLE + String.format("%-6s", colorsTemp[colorsTempIndex]) + ANSI_PURPLE);
-                        colorsTempIndex++;}
-                    //this is a trick that we consider Empty str as a color and print it in Black Color
-                    case "Empty" -> {System.out.print(ANSI_WHITE + String.format("%-6s", "Empty") + ANSI_WHITE);
-                        colorsTempIndex++;}
-                    default -> {
-                        System.out.print(colorsTemp[colorsTempIndex]);
-                        colorsTempIndex++;
+                if (colorsTempIndex < colorsTemp.length) {
+                    switch (colorsTemp[colorsTempIndex]) {
+                        case "red" -> {
+                            System.out.print(ANSI_RED + String.format("%-6s", colorsTemp[colorsTempIndex]) + ANSI_RED);
+                            colorsTempIndex++;
+                        }
+                        case "blue" -> {
+                            System.out.print(ANSI_BLUE + String.format("%-6s", colorsTemp[colorsTempIndex]) + ANSI_BLUE);
+                            colorsTempIndex++;
+                        }
+                        case "yellow" -> {
+                            System.out.print(ANSI_YELLOW + String.format("%-6s", colorsTemp[colorsTempIndex]) + ANSI_YELLOW);
+                            colorsTempIndex++;
+                        }
+                        case "green" -> {
+                            System.out.print(ANSI_GREEN + String.format("%-6s", colorsTemp[colorsTempIndex]) + ANSI_GREEN);
+                            colorsTempIndex++;
+                        }
+                        case "cyan" -> {
+                            System.out.print(ANSI_CYAN + String.format("%-6s", colorsTemp[colorsTempIndex]) + ANSI_CYAN);
+                            colorsTempIndex++;
+                        }
+                        case "purple" -> {
+                            System.out.print(ANSI_PURPLE + String.format("%-6s", colorsTemp[colorsTempIndex]) + ANSI_PURPLE);
+                            colorsTempIndex++;
+                        }
+                        //this is a trick that we consider Empty str as a color and print it in Black Color
+                        case "Empty" -> {
+                            System.out.print(ANSI_WHITE + String.format("%-6s", "Empty") + ANSI_WHITE);
+                            colorsTempIndex++;
+                        }
+                        default -> {
+                            System.out.print(colorsTemp[colorsTempIndex]);
+                            colorsTempIndex++;
+                        }
                     }
+                    System.out.print(ANSI_RESET + " | " + ANSI_RESET);
                 }
-                System.out.print(ANSI_RESET + " | " + ANSI_RESET);
             }
-        }
             System.out.println();
         }
         //Mark the Selected Bottle
@@ -134,15 +144,14 @@ public class ClinkedList {
             index++;
         }
         // Insert each element back to Bottle
-        p = this.tail;
-        System.out.println("j : " + j);
-        for (int h = j - 1; h >= 0; h--) {
+        int tindex = j - 1;
+        while (tindex > 0) {
             do {
                 p = p.next;
-                if (colorsTemp[h] != null) {
-                    System.out.println(p.info.insert(colorsTemp[h]));
-                    System.out.println("colorsTemp[h] : " + colorsTemp[h]);
-                }
+                if (tindex <= -1)
+                    break;
+                p.info.insert(colorsTemp[tindex]);
+                tindex--;
             } while (p != head);
         }
     }
