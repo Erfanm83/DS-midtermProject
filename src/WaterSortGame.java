@@ -37,7 +37,7 @@ public class WaterSortGame {
                 // Assign colors from the shuffled list to each bottle
                 bottle.insert(iterator.next());
             }
-            clinkedList.AddCnode(bottle);
+            clinkedList.AddCnode(bottle , i);
             try {
                 // Reset iterator for the next bottle
                 iterator = colorList.iterator();
@@ -52,7 +52,7 @@ public class WaterSortGame {
         for (int i = 0; i < maxBottleSize; i++) {
             emptyBottle.insert("Empty");
         }
-        clinkedList.AddCnode(emptyBottle);
+        clinkedList.AddCnode(emptyBottle , getNumberOfBottles() - 1);
     }
     //Calculates the number of spaces
     public static int countSpaces(String input) {
@@ -65,8 +65,8 @@ public class WaterSortGame {
         return spaceCount;
     }
     //display method for displaying bottle stuff
-    public void display(int maxbottlesize, ClinkedList bottleList , int selectedBottle){
-        bottleList.show(maxbottlesize , selectedBottle);
+    public void display(int maxbottlesize, ClinkedList bottleList , int selectedBottle , Boolean canSelect){
+        bottleList.show(maxbottlesize , selectedBottle , canSelect);
     }
     //select method for choosing a bottle
     public Boolean select(int selectedBottle , ClinkedList bottleList , int maxbottlesize){
@@ -76,15 +76,20 @@ public class WaterSortGame {
             System.out.println("!< Selected Bottle out of Range >!");
             isSelected = false;
         }else {
-            display(maxbottlesize , bottleList , selectedBottle - 1);
+            display(maxbottlesize , bottleList , selectedBottle - 1 , true);
             System.out.println("Bottle " + selectedBottle + " selected Successfully !");
             isSelected = true;
         }
         return isSelected;
     }
     //deselect method for deselect a bottle
-    public void deselect(){
-        //implementation
+    public void deselect(int selectedBottle , ClinkedList bottleList , int maxbottlesize){
+        if (!validBottle(selectedBottle))
+            System.out.println("!< deSelected Bottle out of Range >!");
+        else {
+            display(maxbottlesize , bottleList , selectedBottle - 1 , false);
+            System.out.println("Bottle " + selectedBottle + " deselected Successfully !");
+        }
     }
     //selectNext method for selecting next item
     public Boolean selectNext(int currentSelected , ClinkedList bottleList, int maxbottlesize){
