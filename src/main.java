@@ -43,10 +43,9 @@ public class main {
         String action = " ";
         boolean selectNext = true;
         int EmptyBottles = 0;
-        int selectedBottle = -1;
+        int selectedBottle = 2;
         int undoRedo = 5;
         System.out.println("\u001B[0m" + "type any action to continue..." + "\u001B[0m");
-
 
         while (!waterSortGame.hasWon()) {
             action = scanner.nextLine();
@@ -56,22 +55,27 @@ public class main {
                     selectedBottle = scanner.nextInt();
                     waterSortGame.select(selectedBottle, bottleList, main.maxBottleSize);
                     break;
-                case "deSelect":
+                case "deselect":
                     System.out.println("enter bottle number from 1 to " + main.waterSortGame.getNumberOfBottles());
-                    selectedBottle = scanner.nextInt();
-//                    waterSortGame.deselect(selectedBottle , bottleList, main.maxBottleSize);
+                    int deselectedBottle = scanner.nextInt();
+                    if (waterSortGame.deselect(deselectedBottle , selectedBottle , bottleList, main.maxBottleSize))
+                        selectedBottle = -1;
                     break;
-                case "selectNext":
-                    if (selectedBottle != -1)
+                case "selectnext":
+                    if (selectedBottle == -1)
+                        System.out.println("Please select a bottle first");
+                    else {
                         waterSortGame.selectNext(selectedBottle, bottleList, main.maxBottleSize);
-                    else
-                        System.out.println("Please select a bottle first");
+                        selectedBottle++;
+                    }
                     break;
-                case "selectPrevious":
-                    if (selectedBottle != -1)
-                        waterSortGame.selectPrev(selectedBottle, bottleList, main.maxBottleSize);
-                    else
+                case "selectprevious":
+                    if (selectedBottle == -1)
                         System.out.println("Please select a bottle first");
+                    else {
+                        waterSortGame.selectPrev(selectedBottle, bottleList, main.maxBottleSize);
+                        selectedBottle--;
+                    }
                     break;
                 case "pour":
                     int bottleToPour = scanner.nextInt();

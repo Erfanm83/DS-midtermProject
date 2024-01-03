@@ -94,25 +94,36 @@ public class WaterSortGame {
     }
 
     //deselect method for deselect a bottle
-    public void deselect(int bottleToDeselect, int selectedBottle, ClinkedList bottleList, int maxbottlesize) {
-        if (!validBottle(bottleToDeselect))
+    public Boolean deselect(int bottleToDeselect, int selectedBottle, ClinkedList bottleList, int maxbottlesize) {
+        if (!validBottle(bottleToDeselect)) {
             System.out.println("!< deSelected Bottle out of Range >!");
+            return false;
+        }
         else if (bottleToDeselect == selectedBottle) {
             display(maxbottlesize, bottleList, bottleToDeselect - 1, false);
             System.out.println("Bottle " + bottleToDeselect + " deselected Successfully !");
+            return true;
         } else {
-            System.out.println("Please deSelect a valid");
+            System.out.println("Please deSelect a valid bottle");
+            return false;
         }
     }
 
     //selectNext method for selecting next item
     public Boolean selectNext(int currentSelected, ClinkedList bottleList, int maxbottlesize) {
-        return select(currentSelected + 1, bottleList, maxbottlesize);
+        //we reach end of the bottleList
+        if (currentSelected + 1 > getNumberOfBottles())
+            return select(1, bottleList, maxbottlesize);
+        else
+            return select(currentSelected + 1, bottleList, maxbottlesize);
     }
 
     //selectPrev method for selectiong prev item
     public Boolean selectPrev(int currentSelected, ClinkedList bottleList, int maxbottlesize) {
-        return select(currentSelected - 1, bottleList, maxbottlesize);
+        if (currentSelected - 1 == 0)
+            return select(getNumberOfBottles(), bottleList, maxbottlesize);
+        else
+            return select(currentSelected - 1 , bottleList , maxbottlesize);
     }
 
     //Pour method for pouring Bottles
