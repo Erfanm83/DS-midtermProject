@@ -96,7 +96,7 @@ public class ClinkedList {
         //Mark the Selected Bottle
         int index = 0;
         for (int l = 0; l < getnumberofNodes() + 1; l++) {
-            if (selectedBottle == index) {
+            if (selectedBottle == index && canSelect) {
                 System.out.println("  ---#---");
             }else {
                 System.out.print("            ");

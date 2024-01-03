@@ -59,7 +59,7 @@ public class main {
                 case "deSelect":
                     System.out.println("enter bottle number from 1 to " + main.waterSortGame.getNumberOfBottles());
                     selectedBottle = scanner.nextInt();
-                    waterSortGame.deselect(selectedBottle , bottleList, main.maxBottleSize);
+//                    waterSortGame.deselect(selectedBottle , bottleList, main.maxBottleSize);
                     break;
                 case "selectNext":
                     if (selectedBottle != -1)
