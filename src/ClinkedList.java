@@ -26,7 +26,7 @@ public class ClinkedList {
     }
 
     //Add a node to linked list
-    public void AddCnode(Bottle value , int bottleIndex){
+    public void AddCnode(Bottle value, int bottleIndex) {
         myNode newNode = new myNode(value);
         try {
             if (head == null) {
@@ -71,34 +71,60 @@ public class ClinkedList {
     }
 
     //show method for printing colors colorfully on console
-    public void show(int maxbottleSize, int selectedBottle , Boolean canSelect) {
+    public void show(int maxbottleSize, int selectedBottle, Boolean canSelect) {
         if (this.head == null) {
             System.out.println("Circular Queue is empty.");
         }
         myNode p = this.head;
-//        for (int i = 0; i < getnumberofNodes(); i++) {
+        if (p.bottleIndex != 0) {
             p = p.next;
-            System.out.println("p.bottleIndex = (Gorgali downloading...)" + p.bottleIndex);
-//        }
+        }
         int j = 0;
         String[] colorsTemp = new String[maxbottleSize * (getnumberofNodes() + 1)];
         // Pop items from each Bottle and add it to a temp String
-        for (int k = 0; k < getnumberofNodes(); k++) {
+        for (int k = 0; k < maxbottleSize; k++) {
             do {
                 if (!p.info.isEmpty()) {
                     colorsTemp[j] = p.info.pop();
-                    System.out.println("initially colorsTemp[j] = " + colorsTemp[j]);
                     j++;
                 }
                 p = p.next;
             } while (p.bottleIndex != 0);
         }
-        System.out.println("p.bottleIndex = (Gorgali downloaded.)" + p.bottleIndex);
         // Print colorsTemp on the console
-        for (int i = 0; i < colorsTemp.length; i++) {
-            System.out.println("colorsTemp[i] = " + colorsTemp[i]);
-            System.out.println("p.bottleIndex = " + p.bottleIndex);
+        printColorsTemp(maxbottleSize , colorsTemp);
+        //Mark the Selected Bottle
+        int index = 0;
+        for (int l = 0; l < getnumberofNodes() + 1; l++) {
+            if (selectedBottle == index) {
+                System.out.println("  ---#---");
+            }else {
+                System.out.print("            ");
+            }
+            index++;
         }
+        System.out.println();
+        // Insert each element back to Bottle
+        for (int i = 0; i < getnumberofNodes() - 1; i++) {
+            p = p.next;
+        }
+        int tIndex = j - 1;
+        while (tIndex >= 0) {
+            do {
+                if (tIndex == -1)
+                    break;
+                if (colorsTemp[tIndex] != null) {
+                    p.info.insert(colorsTemp[tIndex]);
+                }
+                for (int i = 0; i < getnumberofNodes() - 1; i++) {
+                    p = p.next;
+                }
+                tIndex--;
+            } while (p.bottleIndex != getnumberofNodes());
+        }
+    }
+
+    private void printColorsTemp(int maxbottleSize , String [] colorsTemp){
         int colorsTempIndex = 0;
         for (int i = 0; i < maxbottleSize; i++) {
             for (int k = 0; k < getnumberofNodes(); k++) {
@@ -144,48 +170,6 @@ public class ClinkedList {
             }
             System.out.println();
         }
-        //Mark the Selected Bottle
-        for (int s = 0; s < selectedBottle; s++) {
-            System.out.print("            ");
-        }
-        int index = 0;
-        for (int l = 0; l < getnumberofNodes() + 1; l++) {
-//            p = p.next;
-            if (selectedBottle == index) {
-                System.out.println("  ---#---");
-            }
-            index++;
-        }
-        System.out.println();
-//        for (String color: colorsTemp
-//             ) {
-//            System.out.println("color : " + color);
-//        }
-//        for (int i = 0; i < getnumberofNodes(); i++) {
-//            p = p.next;
-//            System.out.println("p.bottleIndex = (Gorgali)" + p.bottleIndex);
-//        }
-        // Insert each element back to Bottle
-        int tIndex = j - 1;
-        while (tIndex >= 0) {
-            do {
-                if (tIndex == -1)
-                    break;
-                if (colorsTemp[tIndex] != null) {
-                    p.info.insert(colorsTemp[tIndex]);
-                    System.out.println("colorsTemp[tIndex] = " + colorsTemp[tIndex]);
-                    System.out.println("p.bottleIndex = " + p.bottleIndex);
-                }
-                p = p.next;
-                tIndex--;
-            } while (p.bottleIndex != 0);
-        }
-        for (int i = 0; i < colorsTemp.length; i++) {
-            System.out.println("Ghaaaaaaaaaaaaaaaaaaaaaan colorsTemp[i] = " + colorsTemp[i]);
-            System.out.println("Ghaaaaaaaaaaaaaaaaaaaaaaan p.bottleIndex = " + p.bottleIndex);
-        }
-        p = p.next;
-        System.out.println("p.bottleIndex = (Ghaaaaaaaaaaaaaan Ghaaaaaaaaaaaaaaaaaaan)" + p.bottleIndex);
     }
 
     //check to see whether CLinkedList is Empty or not
