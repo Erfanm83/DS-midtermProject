@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 public class ClinkedList {
 
     // ANSI escape codes to use color in your output.
@@ -80,7 +82,7 @@ public class ClinkedList {
             p = p.next;
         }
         int j = 0;
-        String[] colorsTemp = new String[maxbottleSize * (getnumberofNodes() + 1)];
+        String[] colorsTemp = new String[maxbottleSize * (getNumberofNodes() + 1)];
         // Pop items from each Bottle and add it to a temp String
         for (int k = 0; k < maxbottleSize; k++) {
             do {
@@ -92,20 +94,20 @@ public class ClinkedList {
             } while (p.bottleIndex != 0);
         }
         // Print colorsTemp on the console
-        printColorsTemp(maxbottleSize , colorsTemp);
+        printColorsTemp(maxbottleSize, colorsTemp);
         //Mark the Selected Bottle
         int index = 0;
-        for (int l = 0; l < getnumberofNodes() + 1; l++) {
+        for (int l = 0; l < getNumberofNodes() + 1; l++) {
             if (selectedBottle == index && canSelect) {
                 System.out.println("  ---#---");
-            }else {
+            } else {
                 System.out.print("            ");
             }
             index++;
         }
         System.out.println();
         // Insert each element back to Bottle
-        for (int i = 0; i < getnumberofNodes() - 1; i++) {
+        for (int i = 0; i < getNumberofNodes() - 1; i++) {
             p = p.next;
         }
         int tIndex = j - 1;
@@ -116,18 +118,18 @@ public class ClinkedList {
                 if (colorsTemp[tIndex] != null) {
                     p.info.insert(colorsTemp[tIndex]);
                 }
-                for (int i = 0; i < getnumberofNodes() - 1; i++) {
+                for (int i = 0; i < getNumberofNodes() - 1; i++) {
                     p = p.next;
                 }
                 tIndex--;
-            } while (p.bottleIndex != getnumberofNodes());
+            } while (p.bottleIndex != getNumberofNodes());
         }
     }
 
-    private void printColorsTemp(int maxbottleSize , String [] colorsTemp){
+    private void printColorsTemp(int maxbottleSize, String[] colorsTemp) {
         int colorsTempIndex = 0;
         for (int i = 0; i < maxbottleSize; i++) {
-            for (int k = 0; k < getnumberofNodes(); k++) {
+            for (int k = 0; k < getNumberofNodes(); k++) {
                 System.out.print(ANSI_RESET + " | " + ANSI_RESET);
                 if (colorsTempIndex < colorsTemp.length) {
                     switch (colorsTemp[colorsTempIndex]) {
@@ -177,23 +179,102 @@ public class ClinkedList {
         return head == null;
     }
 
-    //counts number of nodes
-    public int getnumberofNodes() {
-        int k = 0;
-        do {
-            if (head == null)
-                return 0;
-            head = head.next;
-            k++;
-        } while (head != tail);
-        return k;
-    }
-
     public void setnumberofNodes(int numberofNodes) {
         this.numberofNodes = numberofNodes;
     }
-}
 
+    public int getNumberofNodes() {
+        return numberofNodes;
+    }
+
+    public String getColorByIndex(int index) {
+        myNode p = this.head;
+        while (p != null && p.bottleIndex != index) {
+            p = p.next;
+        }
+        if (p == null) {
+            return null;
+        }
+        Bottle bottle = p.info;
+        if (bottle.isEmpty()) {
+            return null;
+        }
+        String poppedColor = bottle.pop();
+        if (poppedColor != null) {
+            bottle.insert(poppedColor);
+        }
+        return poppedColor;
+    }
+
+    public Bottle getBottleByIndex(int index) {
+        myNode p = this.head;
+        while (p != null && p.bottleIndex != index) {
+            p = p.next;
+        }
+        if (p == null) {
+            return null;
+        }
+        return p.info;
+    }
+
+    public Boolean pourBottle(int bottleToPour, int selectedBottle, int maxbottlesize) {
+        String topColor = getColorByIndex(selectedBottle - 1);
+        String selectedBottleColor = getColorByIndex(selectedBottle - 1);
+        String bottleToPourColor = getColorByIndex(bottleToPour - 1);
+        Bottle selectedbottle = getBottleByIndex(selectedBottle - 1);
+        Bottle bottletoPour = getBottleByIndex(bottleToPour - 1);
+        System.out.println("selectedBottle = " + selectedBottle);
+        System.out.println("bottleToPour = " + bottleToPour);
+
+        if (bottleToPourColor.equals("Empty")) {
+            int eNumber = 0;
+            int pNumber = 0;
+            String pColor = "Empty";
+            String sColor = selectedBottleColor;
+            //Bottle to pour is an Empty Bottle
+            while (Objects.equals(pColor, "Empty")){
+
+                if (pColor != null && pColor.equals("Empty")){
+                    pColor = bottletoPour.pop();
+                    eNumber++;
+                }
+                System.out.println("pColor : " + pColor);
+                pColor = getColorByIndex(bottleToPour - 1);
+                System.out.println("pColor2 : " + pColor);
+            }
+            while (Objects.equals(sColor, topColor)){
+                System.out.println("topColor : " + topColor);
+                System.out.println("sColor : " + sColor);
+                if (sColor != null) {
+                    sColor = selectedbottle.pop();
+                    System.out.println(bottletoPour.insert(sColor));
+                }
+                sColor = getColorByIndex(selectedBottle - 1);
+                if (!sColor.equals("Empty")) {
+                    System.out.println(bottletoPour.insert(sColor));
+//                    System.out.println("GorgMammad " + selectedbottle.pop());
+                }
+                System.out.println("sColor2 : " + sColor);
+                pNumber++;
+            }
+            System.out.println("eNumber = " + eNumber);
+            System.out.println("pNumber = " + pNumber);
+            // refill stacks
+//            System.out.println("number of Empty insert on bottleToPour");
+            for (int i = 0; i < eNumber - pNumber; i++) {
+                bottletoPour.insert("Empty");
+//                System.out.println(bottletoPour.insert("Empty"));
+            }
+//            System.out.println("number of Empty insert on selectedbottle");
+            for (int i = 0; i < pNumber; i++) {
+                selectedbottle.insert("Empty");
+//                System.out.println(selectedbottle.insert("Empty"));
+            }
+            return true;
+        }
+        return false;
+    }
+}
 //Definition of class Node
 class myNode {
     Bottle info;

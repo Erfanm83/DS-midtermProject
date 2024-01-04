@@ -35,6 +35,16 @@ public class Bottle {
         }
     }
 
+    //retrieve the top color
+    public String getTopColor() {
+        for (int i = maxBottleSize - 1; i >= 0; i--) {
+            if (bottleColors[i] != null) {
+                return bottleColors[i];
+            }
+        }
+        return null; // Return null for an empty bottle
+    }
+
     public Boolean isEmpty() {
         return this.top == -1;
     }

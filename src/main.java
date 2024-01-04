@@ -1,4 +1,3 @@
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class main {
@@ -30,7 +29,7 @@ public class main {
             main.maxBottleSize = scanner.nextInt();
             main.clinkedList = new ClinkedList();
             main.waterSortGame = new WaterSortGame(main.bottleColors, main.maxBottleSize, main.clinkedList);
-            main.waterSortGame.display(main.maxBottleSize, main.clinkedList, 1 , true);
+            main.waterSortGame.display(main.maxBottleSize, main.clinkedList, 1, true);
             gameplay(main.waterSortGame, main.clinkedList);
         } catch (RuntimeException exception) {
             throw new RuntimeException("<! An Unexpected ERROR Just Happened !>");
@@ -58,7 +57,7 @@ public class main {
                 case "deselect":
                     System.out.println("enter bottle number from 1 to " + main.waterSortGame.getNumberOfBottles());
                     int deselectedBottle = scanner.nextInt();
-                    if (waterSortGame.deselect(deselectedBottle , selectedBottle , bottleList, main.maxBottleSize))
+                    if (waterSortGame.deselect(deselectedBottle, selectedBottle, bottleList, main.maxBottleSize))
                         selectedBottle = -1;
                     break;
                 case "selectnext":
@@ -78,8 +77,15 @@ public class main {
                     }
                     break;
                 case "pour":
-                    int bottleToPour = scanner.nextInt();
-//                    waterSortGame.pour(bottleToPour);
+                    if (selectedBottle == -1)
+                        System.out.println("Please select a bottle first");
+                    else {
+                        int bottleToPour = scanner.nextInt();
+                        if (selectedBottle == bottleToPour)
+                            System.out.println("Please select a different bottle to pour");
+                        else
+                            waterSortGame.pour(bottleToPour, selectedBottle, bottleList, main.maxBottleSize);
+                    }
                     break;
                 case "swap":
                     int bottleToSwap = scanner.nextInt();
@@ -89,8 +95,8 @@ public class main {
                     String inputString = scanner.nextLine();
                     // Split the input string by space
                     String[] parts = inputString.split("\\s+");
-                    if(parts.length == 2)
-                        waterSortGame.replaceColor(parts[0] , parts[1]);
+                    if (parts.length == 2)
+                        waterSortGame.replaceColor(parts[0], parts[1]);
                     else
                         System.out.println("please enter two colors separated by space.");
                     break;
@@ -98,21 +104,24 @@ public class main {
                     if (undoRedo > 0) {
                         waterSortGame.undo();
                         undoRedo--;
-                    }else
+                    } else
                         System.out.println("you reached the maximum usage of undo.");
                     break;
                 case "redo":
                     if (undoRedo > 0) {
                         waterSortGame.redo();
                         undoRedo--;
-                    }else
+                    } else
                         System.out.println("you reached the maximum usage of redo.");
                     break;
                 case "addEmptyBottle":
                     EmptyBottles++;
                     if (EmptyBottles == 1) {
-                        waterSortGame.addEmptyBottle();
-                    }else
+                        waterSortGame.addEmptyBottle(main.maxBottleSize , bottleList);
+                        main.waterSortGame.display(main.maxBottleSize, main.clinkedList, selectedBottle - 1, true);
+                        main.waterSortGame.setNumberOfBottles(main.waterSortGame.getNumberOfBottles() + 1);
+                        System.out.println("new Bottle added to ClinkedList Successfully. ");
+                    } else
                         System.out.println("you reached the maximum usage of adding an empty Bottle");
                     break;
                 default:
