@@ -46,7 +46,7 @@ public class main {
         int undoRedo = 5;
         System.out.println("\u001B[0m" + "type any action to continue..." + "\u001B[0m");
 
-        while (true) {
+        while (!waterSortGame.hasWon()) {
             action = scanner.nextLine();
             switch (action) {
                 case "select":
@@ -129,10 +129,10 @@ public class main {
                     break;
             }
         }
-//        main.waterSortGame.display(main.maxBottleSize, main.clinkedList, selectedBottle - 1, true);
-//        System.out.println("\u001B[33m" + "*************************************************************************************************" + "\u001B[33m");
-//        System.out.println("\u001B[34m" + "###                           Congratulations, You won the Game !!!                           ###" + "\u001B[34m");
-//        System.out.println("\u001B[33m" + "*************************************************************************************************" + "\u001B[33m");
-//        System.out.println("\u001B[35m" + "Thanks for choosing my game to play !" + "\u001B[35m");
+        main.waterSortGame.display(main.maxBottleSize, main.clinkedList, selectedBottle - 1, true);
+        System.out.println("\u001B[33m" + "*************************************************************************************************" + "\u001B[33m");
+        System.out.println("\u001B[34m" + "###                           Congratulations, You won the Game !!!                           ###" + "\u001B[34m");
+        System.out.println("\u001B[33m" + "*************************************************************************************************" + "\u001B[33m");
+        System.out.println("\u001B[35m" + "Thanks for choosing my game to play !" + "\u001B[35m");
     }
 }
