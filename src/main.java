@@ -129,9 +129,9 @@ public class main {
                     break;
             }
         }
-        System.out.println("********************************");
-        System.out.println("\u001B[34m" + "Congratulations, You won the Game !!!" + "\u001B[34m");
-        System.out.println("********************************");
+        System.out.println("\u001B[33m" + "*************************************************************************************************" + "\u001B[33m");
+        System.out.println("\u001B[34m" + "###                           Congratulations, You won the Game !!!                           ###" + "\u001B[34m");
+        System.out.println("\u001B[33m" + "*************************************************************************************************" + "\u001B[33m");
         System.out.println("\u001B[35m" + "Thanks for choosing my game to play !" + "\u001B[35m");
     }
 }

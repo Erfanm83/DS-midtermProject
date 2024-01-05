@@ -4,7 +4,6 @@ public class WaterSortGame {
     private int numberOfBottles;
     private String colors;
     private int maxbottlesize;
-
     //circular Queue implementation with linkedList
     private ClinkedList bottleList;
 
@@ -17,7 +16,6 @@ public class WaterSortGame {
         this.maxbottlesize = maxbottlesize;
         this.bottleList = bottleList;
 
-        // Create a list of colors and shuffle it
         String[] colorArray = colors.split("\\s+");
         initialize(maxbottlesize, bottleList, colorArray);
     }
@@ -178,8 +176,8 @@ public class WaterSortGame {
     }
 
     //AddEmptyBottle method
-    //Adds a bottle half the size of maxBottleSize to the end of the list of bottles. User until the end of the game only
-    //He can use this feature once
+    //Adds a bottle half the size of maxBottleSize to the end of the list of bottles
+    //Player can use this feature only once until the end of the game
     public void addEmptyBottle(int maxBottleSize, ClinkedList clinkedList) {
         int halfSize = maxBottleSize / 2;
         Bottle emptyBottle = new Bottle(maxBottleSize);
@@ -196,28 +194,33 @@ public class WaterSortGame {
 
     // Check if player has won the game
     public Boolean hasWon() {
-        myNode current = bottleList.getHead();
+        return bottleList.checkWinnig(maxbottlesize);
+//        myNode current = bottleList.getHead();
+//
+//        while (current != null) {
+//            Bottle bottle = current.info;
+//
+//            // Check if bottle has same non-Empty color throughout
+//            String color = bottle.getTopColor();
+//            if (color != null && !color.equals("Empty")) {
+//                for (int i = 0; i < maxbottlesize; i++) {
+//                    if (!bottleList.getColorByIndex(i).equals(color)) {
+//                        return false;
+//                    }
+//                }
+//                // This bottle has all same color
+//                return true;
+//            }
+//
+//            current = current.next;
+//        }
+//
+//        // No single color bottle found
+//        return false;
+    }
 
-        while (current != null) {
-            Bottle bottle = current.info;
-
-            // Check if bottle has same non-Empty color throughout
-            String color = bottle.getTopColor();
-            if (color != null && !color.equals("Empty")) {
-                for (int i = 0; i < maxbottlesize; i++) {
-                    if (!bottleList.getColorByIndex(i).equals(color)) {
-                        return false;
-                    }
-                }
-                // This bottle has all same color
-                return true;
-            }
-
-            current = current.next;
-        }
-
-        // No single color bottle found
-        return false;
+    private int getNumberOfColors(int numberOfBottles){
+        return numberOfBottles - 1;
     }
 
     //Undo Method

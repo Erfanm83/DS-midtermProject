@@ -226,53 +226,140 @@ public class ClinkedList {
         System.out.println("selectedBottle = " + selectedBottle);
         System.out.println("bottleToPour = " + bottleToPour);
 
+        //Bottle to pour is an Empty Bottle
         if (bottleToPourColor.equals("Empty")) {
             int eNumber = 0;
             int pNumber = 0;
             String pColor = "Empty";
             String sColor = selectedBottleColor;
-            //Bottle to pour is an Empty Bottle
-            while (Objects.equals(pColor, "Empty")){
+            String temp = null;
+            if (!selectedBottleColor.equals("Empty")) {
+                while (Objects.equals(pColor, "Empty")) {
 
-                if (pColor != null && pColor.equals("Empty")){
-                    pColor = bottletoPour.pop();
-                    eNumber++;
+                    if (pColor != null && pColor.equals("Empty")) {
+                        pColor = bottletoPour.pop();
+                        eNumber++;
+                    }
+                    System.out.println("pColor : " + pColor);
+                    pColor = getColorByIndex(bottleToPour - 1);
+                    System.out.println("pColor2 : " + pColor);
                 }
-                System.out.println("pColor : " + pColor);
-                pColor = getColorByIndex(bottleToPour - 1);
-                System.out.println("pColor2 : " + pColor);
-            }
-            while (Objects.equals(sColor, topColor)){
-                System.out.println("topColor : " + topColor);
-                System.out.println("sColor : " + sColor);
-                if (sColor != null) {
-                    sColor = selectedbottle.pop();
-                    System.out.println(bottletoPour.insert(sColor));
+                while (Objects.equals(sColor, topColor)) {
+                    System.out.println("topColor : " + topColor);
+                    System.out.println("sColor : " + sColor);
+                    if (sColor != null) {
+                        sColor = selectedbottle.pop();
+//                    System.out.println(bottletoPour.insert(sColor));
+                        if (!sColor.equals("Empty")) {
+                            System.out.println(bottletoPour.insert(sColor));
+//                      System.out.println("GorgMammad " + selectedbottle.pop());
+                        }
+                    }
+                    sColor = getColorByIndex(selectedBottle - 1);
+                    System.out.println("sColor2 : " + sColor);
+                    pNumber++;
                 }
-                sColor = getColorByIndex(selectedBottle - 1);
-                if (!sColor.equals("Empty")) {
-                    System.out.println(bottletoPour.insert(sColor));
-//                    System.out.println("GorgMammad " + selectedbottle.pop());
-                }
-                System.out.println("sColor2 : " + sColor);
-                pNumber++;
-            }
-            System.out.println("eNumber = " + eNumber);
-            System.out.println("pNumber = " + pNumber);
-            // refill stacks
+                // refill stacks
 //            System.out.println("number of Empty insert on bottleToPour");
-            for (int i = 0; i < eNumber - pNumber; i++) {
-                bottletoPour.insert("Empty");
+                for (int i = 0; i < eNumber - pNumber; i++) {
+                    bottletoPour.insert("Empty");
 //                System.out.println(bottletoPour.insert("Empty"));
-            }
+                }
 //            System.out.println("number of Empty insert on selectedbottle");
-            for (int i = 0; i < pNumber; i++) {
-                selectedbottle.insert("Empty");
+                for (int i = 0; i < pNumber; i++) {
+                    selectedbottle.insert("Empty");
 //                System.out.println(selectedbottle.insert("Empty"));
+                }
+                return true;
             }
+            if (!sColor.equals(bottleToPourColor)) {
+                System.out.println("Can not pour to this Bottle");
+                return false;
+            }
+            else {
+                System.out.println("GorgAli Ghaaaaaaaaaaan Ghaaaaaaan");
+                while (Objects.equals(pColor, "Empty")) {
+                    if (pColor != null && pColor.equals("Empty")) {
+                        pColor = bottletoPour.pop();
+                        eNumber++;
+                    }
+                    System.out.println("pColor : " + pColor);
+                    pColor = getColorByIndex(bottleToPour - 1);
+                    System.out.println("pColor2 : " + pColor);
+                }
+                while (Objects.equals(sColor, topColor)) {
+                    System.out.println("topColor : " + topColor);
+                    System.out.println("sColor : " + sColor);
+                    if (sColor != null) {
+                        sColor = selectedbottle.pop();
+                        temp = sColor;
+//                    System.out.println(bottletoPour.insert(sColor));
+                    }
+                    sColor = getColorByIndex(selectedBottle - 1);
+                    System.out.println("sColor2 : " + sColor);
+                    bottleToPourColor = getColorByIndex(bottleToPour - 1);
+                    System.out.println("bottleToPourColor = " + bottleToPourColor);
+                    if (sColor != null && !sColor.equals("Empty")) {
+                        topColor = sColor;
+                        if (sColor.equals(bottleToPourColor))
+                            System.out.println(bottletoPour.insert(sColor));
+                        else{
+                            System.out.println(sColor + " color doesn't match " + bottleToPourColor + " color.");
+                            System.out.println(selectedbottle.insert(temp));
+                            break;
+                        }
+//                      System.out.println("GorgMammad " + selectedbottle.pop());
+                    }
+//                    if (!sColor.equals(bottleToPourColor)) {
+//                        System.out.println("Can not pour to this Bottle");
+//                        break;
+//                    }
+                    pNumber++;
+                }
+                // refill stacks
+//            System.out.println("number of Empty insert on bottleToPour");
+                for (int i = 0; i < eNumber - pNumber; i++) {
+                    bottletoPour.insert("Empty");
+//                System.out.println(bottletoPour.insert("Empty"));
+                }
+//            System.out.println("number of Empty insert on selectedbottle");
+                for (int i = 0; i < pNumber; i++) {
+                    selectedbottle.insert("Empty");
+//                System.out.println(selectedbottle.insert("Empty"));
+                }
             return true;
+            }
         }
         return false;
+    }
+
+    public Boolean checkWinnig(int maxbottleSize) {
+        myNode p = this.head;
+        if (p.bottleIndex != 0) {
+            p = p.next;
+        }
+        int fullBottles = 0;
+        int similarColors;
+        for (int k = 0; k < getNumberofNodes() - 1; k++) {
+            similarColors = 1;
+            String topColor = p.info.pop();
+            if (!topColor.equals("Empty")) {
+                for (int i = 0; i < maxbottleSize - 1; i++) {
+                    if (p.info.pop().equals(topColor)) {
+                        similarColors++;
+                    }
+                }
+            }
+            if (similarColors == maxbottleSize) {
+                fullBottles++;
+                for (int i = 0; i < maxbottleSize; i++) {
+                    p.info.insert(topColor);
+                }
+            }
+            if (p.next.bottleIndex != 0)
+                p = p.next;
+        }
+        return fullBottles == getNumberofNodes() - 1;
     }
 }
 //Definition of class Node
