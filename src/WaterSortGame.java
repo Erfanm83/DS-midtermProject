@@ -159,6 +159,8 @@ public class WaterSortGame {
             isSwapped = false;
         } else {
             //implementation
+            bottleList.swapBottle(bottleToSwap - 1, selectedBottle - 1);
+            display(maxbottlesize , bottleList , selectedBottle - 1, true);
             System.out.println("Bottle " + selectedBottle + " swapped with " + bottleToSwap + " Successfully !");
             isSwapped = true;
         }

@@ -275,8 +275,7 @@ public class ClinkedList {
             if (!sColor.equals(bottleToPourColor)) {
                 System.out.println("Can not pour to this Bottle");
                 return false;
-            }
-            else {
+            } else {
                 System.out.println("GorgAli Ghaaaaaaaaaaan Ghaaaaaaan");
                 while (Objects.equals(pColor, "Empty")) {
                     if (pColor != null && pColor.equals("Empty")) {
@@ -303,7 +302,7 @@ public class ClinkedList {
                         topColor = sColor;
                         if (sColor.equals(bottleToPourColor))
                             System.out.println(bottletoPour.insert(sColor));
-                        else{
+                        else {
                             System.out.println(sColor + " color doesn't match " + bottleToPourColor + " color.");
                             System.out.println(selectedbottle.insert(temp));
                             break;
@@ -327,7 +326,7 @@ public class ClinkedList {
                     selectedbottle.insert("Empty");
 //                System.out.println(selectedbottle.insert("Empty"));
                 }
-            return true;
+                return true;
             }
         }
         return false;
@@ -353,15 +352,208 @@ public class ClinkedList {
             if (similarColors == maxbottleSize) {
                 fullBottles++;
                 for (int i = 0; i < maxbottleSize; i++) {
-                    p.info.insert(topColor);
+                    System.out.println("topColor " + topColor);
+                    System.out.println(p.info.insert(topColor));
                 }
             }
-            if (p.next.bottleIndex != 0)
-                p = p.next;
+//            if (p.next.bottleIndex != 0)
+            p = p.next;
         }
         return fullBottles == getNumberofNodes() - 1;
     }
+
+    //Swap method for swapping two Bottles
+    // Swap method for swapping two Bottles
+    public void swapBottle(int bottleToSwap, int selectedBottle) {
+        // Check for empty list and invalid indexes
+        if (this.head == null) {
+            throw new RuntimeException("The list is empty. Swapping not possible.");
+        }
+
+        System.out.println("selectedBottle = " + selectedBottle);
+        System.out.println("bottleToSwap = " + bottleToSwap);
+
+        // Get the nodes to swap
+        myNode swapNode = getNode(bottleToSwap);
+        myNode selectedNode = getNode(selectedBottle);
+
+        // Swap node positions in the circular linked list
+        if (swapNode == selectedNode) {
+            // No need to swap if they're the same node
+            return;
+        }
+
+        if (swapNode == this.head) {
+            System.out.println("gogrAli Downloading...1");
+            swapFirstNode(swapNode, selectedNode);
+        } else if (selectedNode == this.head) {
+            System.out.println("gogrAli Downloading...2");
+            swapFirstNode(selectedNode, swapNode);
+        } else {
+            System.out.println("gogrAli Downloading...3");
+            // Update pointers for non-head nodes
+//            myNode swapPrev = swapNode.prev;
+            myNode swapPrev = getPrevNode(swapNode);
+            myNode swapNext = swapNode.next;
+//            myNode selectedPrev = selectedNode.prev;
+            myNode selectedPrev = getPrevNode(selectedNode);
+            myNode selectedNext = selectedNode.next;
+
+            swapPrev.next = selectedNode;
+//            selectedNode.prev = swapPrev;
+//            selectedNext.prev = swapNode;
+            swapNode.next = selectedNext;
+
+            selectedNode.next = swapNext;
+//            swapNext.prev = selectedNode;
+//            swapNode.prev = selectedPrev;
+            selectedPrev.next = swapNode;
+        }
+
+        // Swap bottle indexes
+        int tempIndex = swapNode.bottleIndex;
+        swapNode.bottleIndex = selectedNode.bottleIndex;
+        selectedNode.bottleIndex = tempIndex;
+
+        System.out.println("after changing");
+        System.out.println("selectedNode Index = " + selectedNode.bottleIndex);
+        System.out.println("swapNode Index = " + swapNode.bottleIndex);
+        // Update head pointer if necessary
+//        if (this.head == swapNode) {
+//            this.head = selectedNode;
+//        } else if (this.head == selectedNode) {
+//            this.head = swapNode;
+//        }
+    }
+
+    // Helper method for swapping the first node
+    private void swapFirstNode(myNode firstNode, myNode otherNode) {
+        myNode tempNext = otherNode.next;
+        otherNode.next = firstNode.next;
+        firstNode.next = tempNext;
+
+        tempNext = otherNode.prev;
+        otherNode.prev = firstNode.prev;
+        firstNode.prev = tempNext;
+
+        int tempIndex = firstNode.bottleIndex;
+        firstNode.bottleIndex = otherNode.bottleIndex;
+        otherNode.bottleIndex = tempIndex;
+
+        this.head = otherNode;
+    }
+
+//    public void swapBottle(int bottleToSwap, int selectedBottle) {
+////        if (this.head == null) {
+////            System.out.println("Circular Queue is empty.");
+////        }
+////        myNode swapNode = this.head;
+////        myNode selectedNode = this.head;
+////        myNode tempNode;
+////        int tempIndex;
+////        while (swapNode.bottleIndex != bottleToSwap){
+////            System.out.println("swapNode bottleIndex = " + swapNode.bottleIndex);
+////            swapNode = swapNode.next;
+////        }
+//////        System.out.println("swapNode = " + swapNode.info.pop() + " swapNode Index = " + swapNode.bottleIndex);
+////        while (selectedNode.bottleIndex != selectedBottle){
+////            System.out.println("selectedNode bottleIndex = " + selectedNode.bottleIndex);
+////            selectedNode = selectedNode.next;
+////        }
+//////        System.out.println("selectedNode = " + selectedNode.info.pop() + " selectedBottle Index = "  +selectedNode.bottleIndex);
+////        tempNode = selectedNode.next;
+////        selectedNode.next = swapNode.next;
+////        tempNode = selectedNode.prev;
+////        selectedNode.prev = swapNode.prev;
+////        swapNode.next = tempNode;
+////        tempIndex = swapNode.bottleIndex;
+////        swapNode.bottleIndex = selectedNode.bottleIndex;
+////        selectedNode.bottleIndex = tempIndex;
+////        System.out.println("swapNode bottleIndex = " + swapNode.bottleIndex);
+////        System.out.println("selectedNode bottleIndex = " + selectedNode.bottleIndex);
+////    }
+//        myNode swapNode = getNode(bottleToSwap);
+//        myNode selectedNode = getNode(selectedBottle);
+////        myNode prevswapNode = getNode(bottleToSwap - 1);
+////        myNode prevselectedNode = getNode(selectedBottle - 1);
+////        if (bottleToSwap == 0)
+////            prevswapNode = getNode(getNumberofNodes() - 1);
+////        if (selectedBottle == 0)
+////            prevselectedNode = getNode(getNumberofNodes() - 1);
+//
+//        System.out.println("selectedBottle = " + selectedBottle);
+//        System.out.println("bottleToSwap = " + bottleToSwap);
+////        System.out.println("prevselectedBottle = " + (selectedBottle - 1));
+////        System.out.println("prevbottleToSwap = " + (bottleToSwap - 1));
+//
+//        // Update next and prev pointers
+//        myNode temp = selectedNode.next;
+//        selectedNode.next = swapNode.next;
+//        swapNode.next = temp;
+//
+////        // prev Nodes
+////        myNode prevtemp = prevselectedNode.next;
+////        prevselectedNode.next = prevswapNode.next;
+////        prevswapNode.next = prevtemp;
+//
+//        temp = selectedNode.prev;
+//        selectedNode.prev = swapNode.prev;
+//        swapNode.prev = temp;
+//
+//        // Swap indexes
+//        int tempIndex = swapNode.bottleIndex;
+//        swapNode.bottleIndex = selectedNode.bottleIndex;
+//        selectedNode.bottleIndex = tempIndex;
+//
+//        System.out.println("after changing");
+//        System.out.println("selectedBottle Index = " + selectedNode.bottleIndex);
+//        System.out.println("bottleToSwap Index = " + swapNode.bottleIndex);
+//
+////        System.out.println("prevselectedBottle Index = " + prevselectedNode.bottleIndex);
+////        System.out.println("prevbottleToSwap Index = " + prevswapNode.bottleIndex);
+////        // Prev Swap Indexes
+////        int prevtempIndex = prevswapNode.bottleIndex;
+////        prevswapNode.bottleIndex = prevselectedNode.bottleIndex;
+////        prevselectedNode.bottleIndex = prevtempIndex;
+////
+////        System.out.println("prevselectedBottle Index = " + prevselectedNode.bottleIndex);
+////        System.out.println("prevbottleToSwap Index = " + prevswapNode.bottleIndex);
+//
+//        temp = this.head;
+//        while (temp.bottleIndex != 0) {
+//            temp = temp.next;
+//        }
+//        System.out.println("nodes = " + getNumberofNodes());
+//        for (int i = 0; i < getNumberofNodes(); i++) {
+//            System.out.println("Bottle Indexes = " + temp.bottleIndex);
+//            temp = temp.next;
+//        }
+//    }
+
+    // Helper method to get node by index
+    private myNode getNode(int index) {
+        myNode curr = this.head;
+        if (curr.bottleIndex != 0) {
+            curr = curr.next;
+        }
+        do {
+            curr = curr.next;
+        } while (curr.bottleIndex != 0 && curr.bottleIndex != index);
+        return curr;
+    }
+    private myNode getPrevNode(myNode curr){
+        for (int i = 0; i < getNumberofNodes() - 1; i++) {
+            curr = curr.next;
+        }
+        return curr;
+    }
+
+//    private void setPrevNode(myNode setnode , myNode curr){
+//        myNode temp = getPrevNode(curr);
+//        temp.next = setnode;
+//    }
 }
+
 //Definition of class Node
 class myNode {
     Bottle info;
